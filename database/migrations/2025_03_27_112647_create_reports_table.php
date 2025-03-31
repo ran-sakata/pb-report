@@ -19,13 +19,8 @@ return new class extends Migration
             $table->string('property_address')->nullable(); // 物件住所
             $table->string('weather')->nullable(); // 天気（晴れ、曇り、雨）
             $table->string('signboard_photo_path')->nullable(); // 看板写真
-            $table->string('east_path_photo_path')->nullable(); // 東側通路の写真
-            $table->string('south_path_photo_path')->nullable(); // 南側通路の写真
-            for ($i = 1; $i <= 3; $i++) {
-                $table->string("special_note_{$i}_title")->nullable(); // 特記事項タイトル
-                $table->string("special_note_{$i}_photo_path")->nullable(); // 特記事項写真
-                $table->text("special_note_{$i}_description")->nullable(); // 特記事項説明
-            }
+            $table->string('junction_box_photo')->nullable(); // 集電箱写真
+            $table->string('inside_junction_box_photo')->nullable(); // 集電箱内写真
             $table->datetimes(); // 作成日時、更新日時
         });
     }

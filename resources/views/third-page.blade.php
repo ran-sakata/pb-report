@@ -35,39 +35,25 @@
                 <!-- 集電箱 -->
                 <div class="mb-4">
                     <label for="junction_box_photo" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">集電箱</label>
-                    <input type="file" id="junction_box_photo" name="junction_box_photo" accept="image/*" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <input type="file" id="junction_box_photo" name="junction_box_photo" accept="image/*" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="junction_box_preview">
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像をアップロードしてください。</p>
-                    @if ($report->junction_box_photo)
-                        <img src="{{ asset('storage/' . $report->junction_box_photo) }}" alt="集電箱画像" class="mt-2 max-h-40 rounded-md">
-                        <div class="mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="delete_junction_box_photo" value="1" class="form-checkbox text-red-600 dark:text-red-400">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">この写真を削除する</span>
-                            </label>
-                        </div>
-                    @endif
-                    @error('junction_box_photo')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
+                    <div id="junction_box_preview" class="preview-container mt-2">
+                        @if ($report->junction_box_photo)
+                            <img src="{{ asset('storage/' . $report->junction_box_photo) }}" alt="集電箱画像" class="h-32 object-contain rounded-md">
+                        @endif
+                    </div>
                 </div>
 
                 <!-- 集電箱内 -->
                 <div>
                     <label for="inside_junction_box_photo" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">集電箱内</label>
-                    <input type="file" id="inside_junction_box_photo" name="inside_junction_box_photo" accept="image/*" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <input type="file" id="inside_junction_box_photo" name="inside_junction_box_photo" accept="image/*" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="inside_junction_box_preview">
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像をアップロードしてください。</p>
-                    <img id="inside_junction_box_photo_preview" class="mt-2 max-h-40 rounded-md" style="display: {{ $report->inside_junction_box_photo ? 'block' : 'none' }};" src="{{ $report->inside_junction_box_photo ? asset('storage/' . $report->inside_junction_box_photo) : '' }}" />
-                    @if ($report->inside_junction_box_photo)
-                        <div class="mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="delete_inside_junction_box_photo" value="1" class="form-checkbox text-red-600 dark:text-red-400">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">この写真を削除する</span>
-                            </label>
-                        </div>
-                    @endif
-                    @error('inside_junction_box_photo')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
+                    <div id="inside_junction_box_preview" class="preview-container mt-2">
+                        @if ($report->inside_junction_box_photo)
+                            <img src="{{ asset('storage/' . $report->inside_junction_box_photo) }}" alt="集電箱内画像" class="h-32 object-contain rounded-md">
+                        @endif
+                    </div>
                 </div>
             </div>
 
@@ -78,20 +64,13 @@
                 @for ($i = 1; $i <= 10; $i++)
                 <div class="mb-4">
                     <label for="power_converter_{{ $i }}_photo" class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">パワコン{{ $i }}台目</label>
-                    <input type="file" id="power_converter_{{ $i }}_photo" name="power_converter_{{ $i }}_photo" accept="image/*"class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <input type="file" id="power_converter_{{ $i }}_photo" name="power_converter_{{ $i }}_photo" accept="image/*" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="power_converter_{{ $i }}_preview">
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像（最大10MB）をアップロードしてください。</p>
-                    <img id="power_converter_{{ $i }}_photo_preview" class="mt-2 max-h-40 rounded-md" style="display: {{ $report->{'power_converter_' . $i . '_photo'} ? 'block' : 'none' }};" src="{{ $report->{'power_converter_' . $i . '_photo'} ? asset('storage/' . $report->{'power_converter_' . $i . '_photo'}) : '' }}" />
-                    @if ($report->{'power_converter_' . $i . '_photo'})
-                        <div class="mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="delete_power_converter_{{ $i }}_photo" value="1" class="form-checkbox text-red-600 dark:text-red-400">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">この写真を削除する</span>
-                            </label>
-                        </div>
-                    @endif
-                    @error("power_converter_{{ $i }}_photo")
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
+                    <div id="power_converter_{{ $i }}_preview" class="preview-container mt-2">
+                        @if ($photo = $report->powerConverters->firstWhere('index', $i))
+                            <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン{{ $i }}台目の写真" class="h-32 object-contain rounded-md">
+                        @endif
+                    </div>
                 </div>
                 @endfor
             </div>
@@ -100,30 +79,50 @@
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パワコン全景</h2>
                 <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">最大6件まで添付可能</p>
-                <input type="file" id="power_converter_overview_photo" name="power_converter_overview_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                <input type="file" id="power_converter_overview_photo" name="power_converter_overview_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="power_converter_overview_preview">
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
+                <div id="power_converter_overview_preview" class="preview-container flex flex-wrap gap-2 mt-2">
+                    @foreach ($report->powerConverterOverviewPhotos as $photo)
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン全景画像" class="h-32 object-contain rounded-md">
+                    @endforeach
+                </div>
             </div>
 
             <!-- 配管パテ -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">配管パテ</h2>
                 <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">最大6件まで添付可能</p>
-                <input type="file" id="pipe_putty_photo" name="pipe_putty_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                <input type="file" id="pipe_putty_photo" name="pipe_putty_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="pipe_putty_preview">
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
+                <div id="pipe_putty_preview" class="preview-container flex flex-wrap gap-2 mt-2">
+                    @foreach ($report->pipePuttyPhotos as $photo)
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="配管パテ画像" class="h-32 object-contain rounded-md">
+                    @endforeach
+                </div>
             </div>
 
             <!-- パネルアレイ -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">パネルアレイ</h2>
-                <input type="file" id="panel_array_photo" name="panel_array_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                <input type="file" id="panel_array_photo" name="panel_array_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="panel_array_preview">
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
+                <div id="panel_array_preview" class="preview-container flex flex-wrap gap-2 mt-2">
+                    @foreach ($report->panelArrayPhotos as $photo)
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネルアレイ画像" class="h-32 object-contain rounded-md">
+                    @endforeach
+                </div>
             </div>
 
             <!-- パネル汚れ有無 -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">パネル汚れ有無</h2>
-                <input type="file" id="panel_condition_photo" name="panel_condition_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                <input type="file" id="panel_condition_photo" name="panel_condition_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="panel_condition_preview">
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
+                <div id="panel_condition_preview" class="preview-container flex flex-wrap gap-2 mt-2">
+                    @foreach ($report->panelConditionPhotos as $photo)
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネル汚れ有無画像" class="h-32 object-contain rounded-md">
+                    @endforeach
+                </div>
             </div>
 
             <div>

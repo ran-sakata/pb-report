@@ -20,18 +20,8 @@ class Report extends Model
         'property_address',
         'weather',
         'signboard_photo_path',
-        'east_path_photo_path',
-        'south_path_photo_path',
-        // 特記事項
-        'special_note_1_title',
-        'special_note_1_photo_path',
-        'special_note_1_description',
-        'special_note_2_title',
-        'special_note_2_photo_path',
-        'special_note_2_description',
-        'special_note_3_title',
-        'special_note_3_photo_path',
-        'special_note_3_description',
+        'junction_box_photo',
+        'inside_junction_box_photo',
     ];
 
     public function rowPhotos()
@@ -52,5 +42,30 @@ class Report extends Model
     public function weedingNotes()
     {
         return $this->hasMany(WeedingNote::class);
+    }
+
+    public function powerConverterOverviewPhotos()
+    {
+        return $this->hasMany(PowerConverterOverviewPhoto::class);
+    }
+
+    public function pipePuttyPhotos()
+    {
+        return $this->hasMany(PipePuttyPhoto::class);
+    }
+
+    public function panelArrayPhotos()
+    {
+        return $this->hasMany(PanelArrayPhoto::class);
+    }
+
+    public function panelConditionPhotos()
+    {
+        return $this->hasMany(PanelConditionPhoto::class);
+    }
+    
+    public function powerConverters()
+    {
+        return $this->hasMany(PowerConverter::class);
     }
 }
