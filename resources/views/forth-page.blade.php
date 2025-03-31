@@ -27,117 +27,35 @@
 
         <form action="/{{ $report->id }}/forth-page" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
-            <!-- 特記事項1 -->
-            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">特記事項1</h2>
-                <div class="mb-4">
-                    <label for="special_note_title_1" class="block text-base font-medium text-gray-700 dark:text-gray-300">タイトル</label>
-                    <input type="text" id="special_note_title_1" name="special_note_title_1" value="{{ old('special_note_title_1', $report->special_note_title_1) }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                    @error('special_note_title_1')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="special_note_photo_1" class="block text-base font-medium text-gray-700 dark:text-gray-300">写真</label>
-                    <input type="file" id="special_note_photo_1" name="special_note_photo_1" accept="image/*" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                    <img id="special_note_photo_1_preview" class="mt-2 max-h-40 rounded-md" style="display: {{ $report->special_note_photo_1 ? 'block' : 'none' }};" src="{{ $report->special_note_photo_1 ? asset('storage/' . $report->special_note_photo_1) : '' }}" />
-                    @if ($report->special_note_photo_1)
-                        <div class="mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="delete_special_note_photo_1" value="1" class="form-checkbox text-red-600 dark:text-red-400">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">この写真を削除する</span>
-                            </label>
+            @for ($i = 1; $i <= 3; $i++)
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
+                    <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">特記事項{{ $i }}</h2>
+                    <div class="mb-4">
+                        <label for="special_note_title_{{ $i }}" class="block text-base font-medium text-gray-700 dark:text-gray-300">タイトル</label>
+                        <input type="text" id="special_note_title_{{ $i }}" name="special_note_title_{{ $i }}" value="{{ old("special_note_title_{$i}", $report->specialNotes->firstWhere('index', $i)->title ?? '') }}" class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="special_note_photo_{{ $i }}" class="block text-base font-medium text-gray-700 dark:text-gray-300">写真</label>
+                        <input type="file" id="special_note_photo_{{ $i }}" name="special_note_photo_{{ $i }}" accept="image/*" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="special_note_photo_{{ $i }}_preview">
+                        <div id="special_note_photo_{{ $i }}_preview" class="preview-container mt-2">
+                            @if ($photo = $report->specialNotes->firstWhere('index', $i))
+                                <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="特記事項{{ $i }}の写真" class="h-32 object-contain rounded-md">
+                            @endif
                         </div>
-                    @endif
-                    @error('special_note_photo_1')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
+                    </div>
+                    <div class="mb-4">
+                        <label for="special_note_description_{{ $i }}" class="block text-base font-medium text-gray-700 dark:text-gray-300">説明</label>
+                        <textarea id="special_note_description_{{ $i }}" name="special_note_description_{{ $i }}" rows="3" class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:ring-indigo-500 focus:border-indigo-500">{{ old("special_note_description_{$i}", $report->specialNotes->firstWhere('index', $i)->description ?? '') }}</textarea>
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label for="special_note_description_1" class="block text-base font-medium text-gray-700 dark:text-gray-300">説明</label>
-                    <textarea id="special_note_description_1" name="special_note_description_1" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">{{ old('special_note_description_1', $report->special_note_description_1) }}</textarea>
-                    @error('special_note_description_1')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
-
-            <!-- 特記事項2 -->
-            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">特記事項2</h2>
-                <div class="mb-4">
-                    <label for="special_note_title_2" class="block text-base font-medium text-gray-700 dark:text-gray-300">タイトル</label>
-                    <input type="text" id="special_note_title_2" name="special_note_title_2" value="{{ old('special_note_title_2', $report->special_note_title_2) }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                    @error('special_note_title_2')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="special_note_photo_2" class="block text-base font-medium text-gray-700 dark:text-gray-300">写真</label>
-                    <input type="file" id="special_note_photo_2" name="special_note_photo_2" accept="image/*" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                    <img id="special_note_photo_2_preview" class="mt-2 max-h-40 rounded-md" style="display: {{ $report->special_note_photo_2 ? 'block' : 'none' }};" src="{{ $report->special_note_photo_2 ? asset('storage/' . $report->special_note_photo_2) : '' }}" />
-                    @if ($report->special_note_photo_2)
-                        <div class="mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="delete_special_note_photo_2" value="1" class="form-checkbox text-red-600 dark:text-red-400">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">この写真を削除する</span>
-                            </label>
-                        </div>
-                    @endif
-                    @error('special_note_photo_2')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="special_note_description_2" class="block text-base font-medium text-gray-700 dark:text-gray-300">説明</label>
-                    <textarea id="special_note_description_2" name="special_note_description_2" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">{{ old('special_note_description_2', $report->special_note_description_2) }}</textarea>
-                    @error('special_note_description_2')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
-
-            <!-- 特記事項3 -->
-            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">特記事項3</h2>
-                <div class="mb-4">
-                    <label for="special_note_title_3" class="block text-base font-medium text-gray-700 dark:text-gray-300">タイトル</label>
-                    <input type="text" id="special_note_title_3" name="special_note_title_3" value="{{ old('special_note_title_3', $report->special_note_title_3) }}" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                    @error('special_note_title_3')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="special_note_photo_3" class="block text-base font-medium text-gray-700 dark:text-gray-300">写真</label>
-                    <input type="file" id="special_note_photo_3" name="special_note_photo_3" accept="image/*" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                    <img id="special_note_photo_3_preview" class="mt-2 max-h-40 rounded-md" style="display: {{ $report->special_note_photo_3 ? 'block' : 'none' }};" src="{{ $report->special_note_photo_3 ? asset('storage/' . $report->special_note_photo_3) : '' }}" />
-                    @if ($report->special_note_photo_3)
-                        <div class="mt-2">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="delete_special_note_photo_3" value="1" class="form-checkbox text-red-600 dark:text-red-400">
-                                <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">この写真を削除する</span>
-                            </label>
-                        </div>
-                    @endif
-                    @error('special_note_photo_3')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="special_note_description_3" class="block text-base font-medium text-gray-700 dark:text-gray-300">説明</label>
-                    <textarea id="special_note_description_3" name="special_note_description_3" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">{{ old('special_note_description_3', $report->special_note_description_3) }}</textarea>
-                    @error('special_note_description_3')
-                        <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
+            @endfor
 
             <!-- 備考欄 -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">備考</h2>
                 <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">その他気になるところあれば</p>
                 <div class="mb-4">
-                    <textarea id="remarks" name="remarks" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">{{ old('remarks', $report->remarks) }}</textarea>
+                    <textarea id="remarks" name="remarks" rows="3" class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:ring-indigo-500 focus:border-indigo-500">{{ old('remarks', $report->remarks) }}</textarea>
                     @error('remarks')
                         <p class="text-red-600 dark:text-red-400 text-sm mt-1">{{ $message }}</p>
                     @enderror

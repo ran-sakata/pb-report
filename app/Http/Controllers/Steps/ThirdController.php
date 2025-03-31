@@ -6,6 +6,7 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Maestroerror\HeicToJpg;
 
 class ThirdController extends Controller
 {
@@ -45,7 +46,15 @@ class ThirdController extends Controller
             if ($report->junction_box_photo) {
                 Storage::disk('public')->delete($report->junction_box_photo);
             }
-            $report->junction_box_photo = $request->file('junction_box_photo')->store('photos', 'public');
+            $file = $request->file('junction_box_photo');
+            // HEIC形式の画像をJPEGに変換
+            if ($file->getClientOriginalExtension() === 'heic') {
+                $path = 'photos/' . uniqid() . '.jpg';
+                HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
+                $report->junction_box_photo = $path;
+            } else {
+                $report->junction_box_photo = $file->store('photos', 'public');
+            }
         }
 
         // 集電箱内の写真
@@ -53,7 +62,15 @@ class ThirdController extends Controller
             if ($report->inside_junction_box_photo) {
                 Storage::disk('public')->delete($report->inside_junction_box_photo);
             }
-            $report->inside_junction_box_photo = $request->file('inside_junction_box_photo')->store('photos', 'public');
+            $file = $request->file('inside_junction_box_photo');
+            // HEIC形式の画像をJPEGに変換
+            if ($file->getClientOriginalExtension() === 'heic') {
+                $path = 'photos/' . uniqid() . '.jpg';
+                HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
+                $report->inside_junction_box_photo = $path;
+            } else {
+                $report->inside_junction_box_photo = $file->store('photos', 'public');
+            }
         }
 
         // パワコン1～10台目の写真
@@ -68,7 +85,12 @@ class ThirdController extends Controller
                 }
             }
             $file = $request->file("power_converter_{$i}_photo");
-            $path = $file->store('photos', 'public');
+            if ($file->getClientOriginalExtension() === 'heic') {
+                $path = 'photos/' . uniqid() . '.jpg';
+                HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
+            } else {
+                $path = $file->store('photos', 'public');
+            }
 
             $report->powerConverters()->updateOrCreate(
                 ['report_id' => $report->id, 'index' => $i], // パワコン番号で検索
@@ -84,7 +106,12 @@ class ThirdController extends Controller
                 $photo->delete();
             }
             foreach ($request->file('power_converter_overview_photo') as $file) {
-                $path = $file->store('photos', 'public');
+                if ($file->getClientOriginalExtension() === 'heic') {
+                    $path = 'photos/' . uniqid() . '.jpg';
+                    HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
+                } else {
+                    $path = $file->store('photos', 'public');
+                }
                 $report->powerConverterOverviewPhotos()->create(['photo_path' => $path]);
             }
         }
@@ -96,7 +123,12 @@ class ThirdController extends Controller
                 $photo->delete();
             }
             foreach ($request->file('pipe_putty_photo') as $file) {
-                $path = $file->store('photos', 'public');
+                if ($file->getClientOriginalExtension() === 'heic') {
+                    $path = 'photos/' . uniqid() . '.jpg';
+                    HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
+                } else {
+                    $path = $file->store('photos', 'public');
+                }
                 $report->pipePuttyPhotos()->create(['photo_path' => $path]);
             }
         }
@@ -108,7 +140,12 @@ class ThirdController extends Controller
                 $photo->delete();
             }
             foreach ($request->file('panel_array_photo') as $file) {
-                $path = $file->store('photos', 'public');
+                if ($file->getClientOriginalExtension() === 'heic') {
+                    $path = 'photos/' . uniqid() . '.jpg';
+                    HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
+                } else {
+                    $path = $file->store('photos', 'public');
+                }
                 $report->panelArrayPhotos()->create(['photo_path' => $path]);
             }
         }
@@ -120,7 +157,12 @@ class ThirdController extends Controller
                 $photo->delete();
             }
             foreach ($request->file('panel_condition_photo') as $file) {
-                $path = $file->store('photos', 'public');
+                if ($file->getClientOriginalExtension() === 'heic') {
+                    $path = 'photos/' . uniqid() . '.jpg';
+                    HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
+                } else {
+                    $path = $file->store('photos', 'public');
+                }
                 $report->panelConditionPhotos()->create(['photo_path' => $path]);
             }
         }

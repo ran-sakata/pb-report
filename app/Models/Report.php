@@ -68,4 +68,9 @@ class Report extends Model
     {
         return $this->hasMany(PowerConverter::class);
     }
+    
+    public function specialNotes()
+    {
+        return $this->hasMany(SpecialNote::class);
+    }
 }

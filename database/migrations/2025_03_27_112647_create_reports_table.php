@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('signboard_photo_path')->nullable(); // 看板写真
             $table->string('junction_box_photo')->nullable(); // 集電箱写真
             $table->string('inside_junction_box_photo')->nullable(); // 集電箱内写真
+            $table->text('remarks')->nullable(); // 備考
             $table->datetimes(); // 作成日時、更新日時
         });
     }
