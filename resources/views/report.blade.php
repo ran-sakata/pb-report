@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>作業報告書</title>
+<title>{{ $report->reported_at }}_{{ $report->plant_name }}_太陽光発電所メンテナンス点検報告書</title>
 <style>
 @font-face {
     font-family: ipag;
@@ -32,6 +32,13 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
+}
+h3 {
+    font-size: 20px;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    padding-left: 29px;
 }
 .logo {
     position: absolute;
@@ -121,12 +128,12 @@ p {
     max-width: 100%;
     max-height: 200px; /* 高さを200pxに拡大 */
     margin-top: 10px;
+    box-sizing: border-box; /* 枠線を含めたサイズ調整 */
 }
 .photo-table p {
-    border: 1px solid #000; /* ボーダーを追加 */
     width: 90%; /* 横幅を調整 */
     height: 200px; /* 高さを200pxに拡大 */
-    margin: 10px auto; /* 中央揃え */
+    margin: 0 auto; /* 中央揃え */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,7 +155,7 @@ h2 {
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
+    width: 30px;
     height: auto;
 }
 </style>
@@ -196,63 +203,74 @@ h2 {
         <tr>
             <td>
                 <strong>看板</strong>
-                @if ($report->signboard_photo_path)
-                    <img src="{{ storage_path('app/public/' . $report->signboard_photo_path) }}" alt="看板写真">
-                @else
-                    <p>【看板画像】</p>
-                @endif
+                <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                    @if (!empty($report->signboard_photo_path))
+                        <img src="{{ storage_path('app/public/' . $report->signboard_photo_path) }}" alt="看板写真">
+                    @else
+                        <p>【看板画像】</p>
+                    @endif
+                </div>
             </td>
             <td></td> <!-- 空白スペース -->
         </tr>
+    </table>
+    <table class="photo-table">
         @for ($i = 1; $i <= 4; $i += 2)
             <tr>
                 <td>
                     <strong>南から{{ $i }}列目</strong>
-                    @if ($report->{'south_column_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'south_column_' . $i . '_photo_path'}) }}" alt="南から{{ $i }}列目">
-                    @else
-                        <p>【南から{{ $i }}列目画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->rowPhotos->firstWhere('row_number', $i))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南から{{ $i }}列目">
+                        @else
+                            <p>【南から{{ $i }}列目画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
                     <strong>南から{{ $i + 1 }}列目</strong>
-                    @if ($report->{'south_column_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'south_column_' . ($i + 1) . '_photo_path'}) }}" alt="南から{{ $i + 1 }}列目">
-                    @else
-                        <p>【南から{{ $i + 1 }}列目画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->rowPhotos->firstWhere('row_number', $i + 1))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南から{{ $i + 1 }}列目">
+                        @else
+                            <p>【南から{{ $i + 1 }}列目画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
     </table>
 
-    <!-- 2ページ目 下中央のロゴ -->
     @if ($logoBase64)
         <img src="data:image/jpg;base64,{{ $logoBase64 }}" alt="ロゴ" class="logo-bottom">
     @endif
 
     <div style="page-break-after: always;"></div>
 
-    <!-- 3ページ目 点検内容 -->
+    <!-- 2ページ目 点検内容 -->
     <h2>除草剤散布</h2>
     <table class="photo-table">
         @for ($i = 5; $i <= 10; $i += 2)
             <tr>
                 <td>
                     <strong>南から{{ $i }}列目</strong>
-                    @if ($report->{'south_column_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'south_column_' . $i . '_photo_path'}) }}" alt="南から{{ $i }}列目">
-                    @else
-                        <p>【南から{{ $i }}列目画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->rowPhotos->firstWhere('row_number', $i))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南から{{ $i }}列目">
+                        @else
+                            <p>【南から{{ $i }}列目画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
                     <strong>南から{{ $i + 1 }}列目</strong>
-                    @if ($report->{'south_column_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'south_column_' . ($i + 1) . '_photo_path'}) }}" alt="南から{{ $i + 1 }}列目">
-                    @else
-                        <p>【南から{{ $i + 1 }}列目画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->rowPhotos->firstWhere('row_number', $i + 1))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南から{{ $i + 1 }}列目">
+                        @else
+                            <p>【南から{{ $i + 1 }}列目画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
@@ -271,24 +289,24 @@ h2 {
         @for ($i = 1; $i <= 6; $i += 2)
             <tr>
                 <td>
-                    @if ($i === 1)
-                        <strong>東側通路</strong>
-                    @else
-                        <br>
-                    @endif
-                    @if ($report->{'east_path_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'east_path_' . $i . '_photo_path'}) }}" alt="東側通路{{ $i }}画像">
-                    @else
-                        <p>【東側通路{{ $i }}画像】</p>
-                    @endif
+                    <strong>東側通路{{ $i }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->eastPathPhotos->get($i - 1))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="東側通路{{ $i }}画像">
+                        @else
+                            <p>【東側通路{{ $i }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    <br>
-                    @if ($report->{'east_path_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'east_path_' . ($i + 1) . '_photo_path'}) }}" alt="東側通路{{ $i + 1 }}画像">
-                    @else
-                        <p>【東側通路{{ $i + 1 }}画像】</p>
-                    @endif
+                    <strong>東側通路{{ $i + 1 }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->eastPathPhotos->get($i))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="東側通路{{ $i + 1 }}画像">
+                        @else
+                            <p>【東側通路{{ $i + 1 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
@@ -307,24 +325,24 @@ h2 {
         @for ($i = 1; $i <= 6; $i += 2)
             <tr>
                 <td>
-                    @if ($i === 1)
-                        <strong>南側通路</strong>
-                    @else
-                        <br>
-                    @endif
-                    @if ($report->{'south_path_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'south_path_' . $i . '_photo_path'}) }}" alt="南側通路{{ $i }}画像">
-                    @else
-                        <p>【南側通路{{ $i }}画像】</p>
-                    @endif
+                    <strong>南側通路{{ $i }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->southPathPhotos->get($i - 1))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南側通路{{ $i }}画像">
+                        @else
+                            <p>【南側通路{{ $i }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    <br>
-                    @if ($report->{'south_path_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'south_path_' . ($i + 1) . '_photo_path'}) }}" alt="南側通路{{ $i + 1 }}画像">
-                    @else
-                        <p>【南側通路{{ $i + 1 }}画像】</p>
-                    @endif
+                    <strong>南側通路{{ $i + 1 }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->southPathPhotos->get($i))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南側通路{{ $i + 1 }}画像">
+                        @else
+                            <p>【南側通路{{ $i + 1 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
@@ -337,27 +355,34 @@ h2 {
 
     <div style="page-break-after: always;"></div>
 
-    <!-- 4ページ目 特記事項 -->
+    <!-- 4ページ目 除草に関する特記事項 -->
     <h2>除草に関する特記事項</h2>
     <table class="photo-table">
-        @foreach (range(1, 3) as $i)
+        @foreach ($report->weedingNotes as $note)
             <tr>
                 <td>
-                    <strong>特記事項{{ $i }}</strong>
-                    @if ($report->{'special_note_photo_' . $i})
-                        <img src="{{ storage_path('app/public/' . $report->{'special_note_photo_' . $i}) }}" alt="特記事項{{ $i }}写真">
-                    @else
-                        <p>【特記事項{{ $i }}写真】</p>
-                    @endif
+                    <strong>{{ $note->title ?? '特記事項'.$i }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if (!empty($note->photo_path))
+                            <img src="{{ storage_path('app/public/' . $note->photo_path) }}" alt="特記事項{{ $i }}写真">
+                        @else
+                            <p>【特記事項{{ $i }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    <br>
-                    <p>
-                        {{ $report->{'special_note_description_' . $i} ?? '【特記事項'.$i.'内容】' }}
-                    </p>
+                    <strong style="color: #fff">dummy</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box; min-height: 210px;">
+                        <p style="word-wrap: break-word; word-break: break-word; white-space: pre-line;text-align:{{ $note->description ? 'left': 'center' }}">{{ $note->description ?? '【特記事項'.$i.'内容】' }}</p>
+                    </div>
                 </td>
             </tr>
         @endforeach
+        @if ($report->specialNotes->isEmpty())
+            <tr>
+                <td colspan="2"><p>【特記事項がありません】</p></td>
+            </tr>
+        @endif
     </table>
 
     <!-- 下中央のロゴ -->
@@ -373,41 +398,46 @@ h2 {
         <tr>
             <td>
                 <strong>集電箱</strong>
-                @if ($report->junction_box_photo_path)
-                    <img src="{{ storage_path('app/public/' . $report->junction_box_photo_path) }}" alt="集電箱画像">
-                @else
-                    <p>【集電箱画像】</p>
-                @endif
+                <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                    @if ($report->inside_junction_box_photo)
+                        <img src="{{ storage_path('app/public/' . $report->inside_junction_box_photo) }}" alt="集電箱画像" />
+                    @else
+                        <p>【集電箱画像】</p>
+                    @endif
+                </div>
             </td>
             <td>
                 <strong>集電箱内</strong>
-                @if ($report->junction_box_inside_photo_path)
-                    <img src="{{ storage_path('app/public/' . $report->junction_box_inside_photo_path) }}" alt="集電箱内画像">
-                @else
-                    <p>【集電箱内画像】</p>
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <strong>パワコン10台分</strong>
+                <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                    @if ($report->inside_junction_box_photo)
+                        <img src="{{ storage_path('app/public/' . $report->inside_junction_box_photo) }}" alt="集電箱内画像" />
+                    @else
+                        <p>【集電箱内画像】</p>
+                    @endif
+                </div>
             </td>
         </tr>
         @for ($i = 1; $i <= 4; $i += 2)
             <tr>
                 <td>
-                    @if ($report->{'power_conditioner_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'power_conditioner_' . $i . '_photo_path'}) }}" alt="パワコン{{ $i }}画像">
-                    @else
-                        <p>【パワコン{{ $i }}画像】</p>
-                    @endif
+                    <strong>パワコン{{ $i }}台目</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo1 = $report->powerConverters->firstWhere('index', $i))
+                            <img src="{{ storage_path('app/public/' .  $photo1->photo_path) }}" alt="パワコン{{ $i }}画像" />
+                        @else
+                            <p>【パワコン{{ $i }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    @if ($report->{'power_conditioner_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'power_conditioner_' . ($i + 1) . '_photo_path'}) }}" alt="パワコン{{ $i + 1 }}画像">
-                    @else
-                        <p>【パワコン{{ $i + 1 }}画像】</p>
-                    @endif
+                    <strong>パワコン{{ $i + 1 }}台目</strong>   
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo2 = $report->powerConverters->firstWhere('index', $i + 1))
+                            <img src="{{ storage_path('app/public/' .  $photo2->photo_path) }}" alt="パワコン{{ $i + 1 }}画像" />
+                        @else
+                            <p>【パワコン{{ $i + 1 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
@@ -426,18 +456,24 @@ h2 {
         @for ($i = 5; $i <= 10; $i += 2)
             <tr>
                 <td>
-                    @if ($report->{'power_conditioner_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'power_conditioner_' . $i . '_photo_path'}) }}" alt="パワコン{{ $i }}画像">
-                    @else
-                        <p>【パワコン{{ $i }}画像】</p>
-                    @endif
+                    <strong>パワコン{{ $i }}台目</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo1 = $report->powerConverters->firstWhere('index', $i))
+                            <img src="{{ storage_path('app/public/' .  $photo1->photo_path) }}" alt="パワコン{{ $i }}画像" />
+                        @else
+                            <p>【パワコン{{ $i }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    @if ($report->{'power_conditioner_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'power_conditioner_' . ($i + 1) . '_photo_path'}) }}" alt="パワコン{{ $i + 1 }}画像">
-                    @else
-                        <p>【パワコン{{ $i + 1 }}画像】</p>
-                    @endif
+                    <strong>パワコン{{ $i + 1 }}台目</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo2 = $report->powerConverters->firstWhere('index', $i + 1))
+                            <img src="{{ storage_path('app/public/' .  $photo2->photo_path) }}" alt="パワコン{{ $i + 1 }}画像" />
+                        @else
+                            <p>【パワコン{{ $i + 1 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
@@ -458,24 +494,32 @@ h2 {
                 <strong>パワコン全景</strong>
             </td>
         </tr>
-        @for ($i = 1; $i <= 6; $i += 2)
+        @for ($i = 0; $i < 6 ; $i += 2)
             <tr>
-                <td>
-                    @if ($report->{'power_conditioner_overview_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'power_conditioner_overview_' . $i . '_photo_path'}) }}" alt="パワコン全景{{ $i }}画像">
+                <td><div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                    @if (isset($report->powerConverterOverviewPhotos[$i]))
+                        <img src="{{ storage_path('app/public/' . $report->powerConverterOverviewPhotos[$i]->photo_path) }}" alt="パワコン全景{{ $i + 1 }}画像" class="h-32 object-contain rounded-md">
                     @else
                         <p>【パワコン全景{{ $i }}画像】</p>
                     @endif
+                    </div>
                 </td>
                 <td>
-                    @if ($report->{'power_conditioner_overview_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'power_conditioner_overview_' . ($i + 1) . '_photo_path'}) }}" alt="パワコン全景{{ $i + 1 }}画像">
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                    @if (isset($report->powerConverterOverviewPhotos[$i + 1]))
+                        <img src="{{ storage_path('app/public/' . $report->powerConverterOverviewPhotos[$i + 1]->photo_path) }}" alt="パワコン全景{{ $i + 2 }}画像" class="h-32 object-contain rounded-md">
                     @else
                         <p>【パワコン全景{{ $i + 1 }}画像】</p>
                     @endif
+                    </div>
                 </td>
             </tr>
         @endfor
+        @if ($report->powerConverterOverviewPhotos->isEmpty())
+            <tr>
+                <td colspan="2"><p>【パワコン全景画像がありません】</p></td>
+            </tr>
+        @endif
     </table>
 
     <!-- 下中央のロゴ -->
@@ -493,25 +537,35 @@ h2 {
                 <strong>配管パテ</strong>
             </td>
         </tr>
-        @for ($i = 1; $i <= 5; $i += 2)
+        @for ($i = 0; $i < 6; $i += 2)
+            <?php $pipe1 = $report->pipePuttyPhotos->get($i); ?>
+            <?php $pipe2 = $report->pipePuttyPhotos->get($i + 1); ?>
             <tr>
                 <td>
-                    @if ($report->{'pipe_putty_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'pipe_putty_' . $i . '_photo_path'}) }}" alt="配管パテ{{ $i }}画像">
-                    @else
-                        <p>【配管パテ{{ $i }}画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($pipe1 && $pipe1->photo_path)
+                            <img src="{{ storage_path('app/public/' . $pipe1->photo_path) }}" alt="配管パテ{{ $i + 1 }}画像">
+                        @else
+                            <p>【配管パテ{{ $i + 1 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    @if ($report->{'pipe_putty_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'pipe_putty_' . ($i + 1) . '_photo_path'}) }}" alt="配管パテ{{ $i + 1 }}画像">
-                    @else
-                        <p>【配管パテ{{ $i + 1 }}画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($pipe2 && $pipe2->photo_path)
+                            <img src="{{ storage_path('app/public/' . $pipe2->photo_path) }}" alt="配管パテ{{ $i + 2 }}画像">
+                        @else
+                            <p>【配管パテ{{ $i + 2 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
     </table>
+
+    @if ($logoBase64)
+        <img src="data:image/jpg;base64,{{ $logoBase64 }}" alt="ロゴ" class="logo-bottom">
+    @endif
 
     <div style="page-break-after: always;"></div>
 
@@ -523,25 +577,35 @@ h2 {
                 <strong>パネルアレイ</strong>
             </td>
         </tr>
-        @for ($i = 1; $i <= 5; $i += 2)
+        @for ($i = 0; $i < 6; $i += 2)
+            <?php $panel1 = $report->panelArrayPhotos->get($i); ?>
+            <?php $panel2 = $report->panelArrayPhotos->get($i + 1); ?>
             <tr>
                 <td>
-                    @if ($report->{'panel_array_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'panel_array_' . $i . '_photo_path'}) }}" alt="パネルアレイ{{ $i }}画像">
-                    @else
-                        <p>【パネルアレイ{{ $i }}画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($panel1 && $panel1->photo_path)
+                            <img src="{{ storage_path('app/public/' . $panel1->photo_path) }}" alt="パネルアレイ{{ $i + 1 }}画像">
+                        @else
+                            <p>【パネルアレイ{{ $i + 1 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    @if ($report->{'panel_array_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'panel_array_' . ($i + 1) . '_photo_path'}) }}" alt="パネルアレイ{{ $i + 1 }}画像">
-                    @else
-                        <p>【パネルアレイ{{ $i + 1 }}画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($panel2 && $panel2->photo_path)
+                            <img src="{{ storage_path('app/public/' . $panel2->photo_path) }}" alt="パネルアレイ{{ $i + 2 }}画像">
+                        @else
+                            <p>【パネルアレイ{{ $i + 2 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
     </table>
+
+    @if ($logoBase64)
+        <img src="data:image/jpg;base64,{{ $logoBase64 }}" alt="ロゴ" class="logo-bottom">
+    @endif
 
     <div style="page-break-after: always;"></div>
 
@@ -553,24 +617,33 @@ h2 {
                 <strong>パネル汚れの有無</strong>
             </td>
         </tr>
-        @for ($i = 1; $i <= 5; $i += 2)
+        @for ($i = 0; $i < 6; $i += 2)
             <tr>
                 <td>
-                    @if ($report->{'panel_dirt_' . $i . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'panel_dirt_' . $i . '_photo_path'}) }}" alt="パネル汚れ{{ $i }}画像">
-                    @else
-                        <p>【パネル汚れ{{ $i }}画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo1 = $report->panelConditionPhotos->get($i))
+                            <img src="{{ storage_path('app/public/' . $photo1->photo_path) }}" alt="パネル汚れ{{ $i + 1 }}画像">
+                        @else
+                            <p>【パネル汚れ{{ $i + 1 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    @if ($report->{'panel_dirt_' . ($i + 1) . '_photo_path'})
-                        <img src="{{ storage_path('app/public/' . $report->{'panel_dirt_' . ($i + 1) . '_photo_path'}) }}" alt="パネル汚れ{{ $i + 1 }}画像">
-                    @else
-                        <p>【パネル汚れ{{ $i + 1 }}画像】</p>
-                    @endif
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo2 = $report->panelConditionPhotos->get($i + 1))
+                            <img src="{{ storage_path('app/public/' . $photo2->photo_path) }}" alt="パネル汚れ{{ $i + 2 }}画像">
+                        @else
+                            <p>【パネル汚れ{{ $i + 2 }}画像】</p>
+                        @endif
+                    </div>
                 </td>
             </tr>
         @endfor
+        @if ($report->panelConditionPhotos->isEmpty())
+            <tr>
+                <td colspan="2"><p>【パネル汚れ画像がありません】</p></td>
+            </tr>
+        @endif
     </table>
 
     <!-- 下中央のロゴ -->
@@ -583,24 +656,27 @@ h2 {
     <!-- 11ページ目 特記事項 -->
     <h2>特記事項</h2>
     <table class="photo-table">
-        @foreach (range(1, 3) as $i)
+        @for ($i = 1; $i <= 3; $i++) <!-- ループを3つまでに制限 -->
+            <?php $note = $report->specialNotes->get($i - 1); ?>
             <tr>
                 <td>
-                    <strong>特記事項{{ $i }}</strong>
-                    @if ($report->{'additional_note_photo_' . $i})
-                        <img src="{{ storage_path('app/public/' . $report->{'additional_note_photo_' . $i}) }}" alt="特記事項{{ $i }}写真">
-                    @else
-                        <p>【特記事項{{ $i }}写真】</p>
-                    @endif
+                    <strong>{{ $note?->title ?? '特記事項'.$i }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($note)
+                            <img src="{{ storage_path('app/public/' . $note->photo_path) }}" alt="特記事項{{ $i }}画像">
+                        @else
+                            <p>【特記事項{{ $i }}画像】</p>
+                        @endif
+                    </div>
                 </td>
                 <td>
-                    <br>
-                    <p>
-                        {{ $report->{'additional_note_description_' . $i} ?? '【特記事項'.$i.'内容】' }}
-                    </p>
+                    <strong style="color:#FFF">dummy</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;height:210px">
+                        <p style="word-wrap: break-word; word-break: break-word; white-space: pre-line;text-align:{{ $note->description ? 'left': 'center' }}">{{ $note->description ?? '【特記事項内容】' }}</p>
+                    </div>
                 </td>
             </tr>
-        @endforeach
+        @endfor
     </table>
 
     <!-- 下中央のロゴ -->
@@ -615,9 +691,9 @@ h2 {
     <table class="photo-table">
         <tr>
             <td colspan="2">
-                <p style="height: 400px; border: 1px solid #000; display: flex; align-items: center; justify-content: center;">
-                    【備考内容】
-                </p>
+                <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;height:800px">
+                    <p style="word-wrap: break-word; word-break: break-word; white-space: pre-line; text-align:{{ $report->remarks ? 'left': 'center' }}">{{ $report->remarks ?? '【備考内容】' }}</p>
+                </div>
             </td>
         </tr>
     </table>

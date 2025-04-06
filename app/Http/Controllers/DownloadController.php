@@ -23,6 +23,5 @@ class DownloadController extends Controller
         return $pdf->stream('作業報告書.pdf', [
             'Attachment' => false,
         ]);
-        // return $pdf->download('作業報告書.pdf');
     }
 }
