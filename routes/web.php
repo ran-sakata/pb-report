@@ -22,7 +22,7 @@ Route::controller(HistoryController::class)->group(function () {
 Route::controller(FirstController::class)->group(function () {
     Route::get('/new', 'create')->name('create');
     Route::post('/new', 'store')->name('report.store');
-    Route::get('/{report}', 'edit')->name('edit');
+    Route::get('/{report}', 'edit')->name('report.edit');
     Route::post('/{report}', 'update')->name('report.update');
 });
 
