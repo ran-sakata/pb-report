@@ -18,7 +18,7 @@
             </div>
 
             <h1 class="text-2xl font-bold mb-6 text-center">報告書作成フォーム</h1>
-            <form action="{{ isset($report) ? url('/'.$report->id) : url('/new') }}" method="POST" class="space-y-4">
+            <form action="{{ isset($report) ? route('report.edit', [ 'report' => $report->id ]) : route('report.store', ['report' => $report->id]) }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
                     <label for="reported_at" class="block text-base font-medium text-gray-700 dark:text-gray-300">実施報告日</label>
@@ -107,6 +107,11 @@
                     </button>
                 </div>
             </form>
+            <div>
+                <a href="{{ route('welcome') }}" class="w-full inline-block bg-gray-600 dark:bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center">
+                    はじめに戻る
+                </a>
+            </div>
         </div>
         @vite('resources/js/app.js')
     </body>

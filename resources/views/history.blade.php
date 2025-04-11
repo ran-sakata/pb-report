@@ -11,7 +11,7 @@
             <h1 class="text-2xl font-bold mb-6 text-center">作成済みの報告書</h1>
             <ul class="space-y-4">
                 @forelse ($reports as $report)
-                    <a href="/{{ $report->id }}" class="block bg-white dark:bg-gray-800 p-4 rounded shadow hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="{{ route('edit' ['report' => $report->id])}}" class="block bg-white dark:bg-gray-800 p-4 rounded shadow hover:bg-gray-100 dark:hover:bg-gray-700">
                         <li>
                             <div class="flex pb-2">
                                 <span class="w-24 text-sm font-medium text-gray-700 dark:text-gray-300">更新日時:</span>
@@ -41,6 +41,11 @@
             </ul>
             <div class="mt-6">
                 {{ $reports->links('pagination::tailwind') }}
+            </div>
+            <div class="mt-6 text-center">
+                <a href="{{ route('welcome') }}" class="inline-block bg-gray-600 dark:bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                    はじめに戻る
+                </a>
             </div>
         </div>
         @vite('resources/js/app.js')
