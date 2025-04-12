@@ -634,11 +634,6 @@ h2 {
                 </td>
             </tr>
         @endfor
-        @if ($report->panelConditionPhotos->isEmpty())
-            <tr>
-                <td colspan="2"><p>【パネル汚れ画像がありません】</p></td>
-            </tr>
-        @endif
     </table>
 
     <!-- 下中央のロゴ -->
