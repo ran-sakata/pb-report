@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>除草剤散布 | 報告書作成フォーム</title>
+    <title>目視点検１ | 報告書作成フォーム</title>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex items-center justify-center min-h-screen">
@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <h1 class="text-2xl font-bold mb-6 text-center">除草剤散布</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">目視点検１</h1>
 
         @if (session('message'))
             <div id="flash-message" class="fixed bottom-15 right-4 bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded shadow-lg">
@@ -85,29 +85,6 @@
                 </div>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像（最大10MBまで）アップロードしてください。</p>
             </div>
-
-            @for ($i = 1; $i <= 3; $i++)
-                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow mb-4">
-                    <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">除草に関する特記事項 {{ $i }}</h2>
-
-                    <!-- タイトル入力 -->
-                    <label for="weeding_note_{{ $i }}_title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">タイトル</label>
-                    <input type="text" id="weeding_note_{{ $i }}_title" name="weeding_note_{{ $i }}_title" value="{{ old("weeding_note_{$i}_title", $report->weedingNotes[$i - 1]->title ?? '') }}" class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
-
-                    <!-- 写真アップロード -->
-                    <label for="weeding_note_{{ $i }}_photo_path" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mt-4">写真</label>
-                    <input type="file" id="weeding_note_{{ $i }}_photo_path" name="weeding_note_{{ $i }}_photo_path" accept="image/*" class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 mt-1 preview-input" data-preview-target="weeding_note_{{ $i }}_preview">
-                    <div id="weeding_note_{{ $i }}_preview" class="preview-container mt-2">
-                        @if (!empty($report->weedingNotes[$i - 1]->photo_path))
-                            <img src="{{ asset('storage/' . $report->weedingNotes[$i - 1]->photo_path) }}" alt="特記事項 {{ $i }} の写真" class="h-32 object-contain rounded-md mt-2">
-                        @endif
-                    </div>
-
-                    <!-- 説明文入力 -->
-                    <label for="weeding_note_{{ $i }}_description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mt-4">説明文</label>
-                    <textarea id="weeding_note_{{ $i }}_description" name="weeding_note_{{ $i }}_description" rows="3" class="block w-full mt-1 text-sm border-gray-300 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 focus:ring-indigo-500 focus:border-indigo-500">{{ old("weeding_note_{$i}_description", $report->weedingNotes[$i - 1]->description ?? '') }}</textarea>
-                </div>
-            @endfor
 
             <div class="flex justify-between">
                 <a href="{{ route('report.edit', ['report' => $report->id] )}}" class="w-1/2 bg-gray-600 dark:bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center mr-2">

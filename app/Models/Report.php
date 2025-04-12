@@ -44,11 +44,6 @@ class Report extends Model
         return $this->hasMany(SouthPathPhoto::class);
     }
 
-    public function weedingNotes()
-    {
-        return $this->hasMany(WeedingNote::class);
-    }
-
     public function powerConverterOverviewPhotos()
     {
         return $this->hasMany(PowerConverterOverviewPhoto::class);

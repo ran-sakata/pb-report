@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>目視点検 | 報告書作成フォーム</title>
+    <title>目視点検２ | 報告書作成フォーム</title>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex items-center justify-center min-h-screen">
@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <h1 class="text-2xl font-bold mb-6 text-center">目視点検</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">目視点検２</h1>
 
         @if (session('message'))
         <div id="flash-message" class="fixed bottom-15 right-4 bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded shadow-lg">

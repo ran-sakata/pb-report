@@ -169,6 +169,6 @@ class ThirdController extends Controller
 
         $report->save();
 
-        return redirect()->route('forth-page', ['report' => $report->id])->with('message', '目視点検を更新しました');
+        return redirect()->route('forth-page', ['report' => $report->id])->with('message', '目視点検２を更新しました');
     }
 }

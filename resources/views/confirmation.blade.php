@@ -51,7 +51,7 @@
 
         <!-- Second Page Inputs -->
         <div class="mb-6 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">除草剤散布</h2>
+            <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">目視点検１</h2>
 
             <!-- 看板写真 -->
             <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">看板写真</h3>
@@ -98,37 +98,14 @@
                 @endif
             </div>
 
-            <!-- 除草に関する特記事項 -->
-            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mt-6 mb-2">除草に関する特記事項</h3>
-            @for ($i = 1; $i <= 3; $i++)
-                <div class="mb-6 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                    <h4 class="text-md font-semibold text-gray-700 dark:text-gray-300 mb-2">特記事項{{ $i }}</h4>
-                    <p class="text-sm text-gray-700 dark:text-gray-300 mb-2"style="overflow-wrap: break-word;white-space: pre-line;">
-                        <strong>タイトル:</strong>
-                        {{ $report->weedingNotes[$i - 1]->title ?? '未入力' }}
-                    </p>
-                    <div class="flex items-center justify-center mb-4">
-                        @if (!empty($report->weedingNotes[$i - 1]->photo_path))
-                            <img src="{{ asset('storage/' . $report->weedingNotes[$i - 1]->photo_path) }}" alt="特記事項{{ $i }}の写真" class="max-h-40 rounded-md">
-                        @else
-                            <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
-                        @endif
-                    </div>
-                    <p class="text-sm text-gray-700 dark:text-gray-300"style="overflow-wrap: break-word;white-space: pre-line;">
-                        <strong>説明:</strong>
-                        {{ $report->weedingNotes[$i - 1]->description ?? '未入力' }}
-                    </p>
-                </div>
-            @endfor
-
             <div class="mt-4">
-                <a href="{{ route('second-page', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">除草剤散布を編集する</a>
+                <a href="{{ route('second-page', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">目視点検１を編集する</a>
             </div>
         </div>
 
         <!-- Third Page Inputs -->
         <div class="mb-6 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">目視点検</h2>
+            <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">目視点検２</h2>
 
             <!-- 集電箱 -->
             <div class="mb-4">
@@ -208,7 +185,7 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ route('third-page', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">目視点検を編集する</a>
+                <a href="{{ route('third-page', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">目視点検２を編集する</a>
             </div>
         </div>
 

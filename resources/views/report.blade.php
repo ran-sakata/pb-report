@@ -215,7 +215,7 @@ h2 {
     <div style="page-break-after: always;"></div>
 
     <!-- 点検内容 -->
-    <h2>除草剤散布</h2>
+    <h2>目視点検</h2>
     <table class="photo-table">
         <tr>
             <td>
@@ -265,7 +265,7 @@ h2 {
     <div style="page-break-after: always;"></div>
 
     <!-- 2ページ目 点検内容 -->
-    <h2>除草剤散布</h2>
+    <h2>目視点検</h2>
     <table class="photo-table">
         @for ($i = 5; $i <= 10; $i += 2)
             <tr>
@@ -301,7 +301,7 @@ h2 {
     <div style="page-break-after: always;"></div>
 
     <!-- 追加ページ 東側通路 -->
-    <h2>除草剤散布</h2>
+    <h2>目視点検</h2>
     <table class="photo-table">
         @for ($i = 1; $i <= 6; $i += 2)
             <tr>
@@ -337,7 +337,7 @@ h2 {
     <div style="page-break-after: always;"></div>
 
     <!-- 追加ページ 南側通路 -->
-    <h2>除草剤散布</h2>
+    <h2>目視点検</h2>
     <table class="photo-table">
         @for ($i = 1; $i <= 6; $i += 2)
             <tr>
@@ -363,47 +363,6 @@ h2 {
                 </td>
             </tr>
         @endfor
-    </table>
-
-    <!-- 下中央のロゴ -->
-    @if ($logoBase64)
-        <img src="data:image/jpg;base64,{{ $logoBase64 }}" alt="ロゴ" class="logo-bottom">
-    @endif
-
-    <div style="page-break-after: always;"></div>
-
-    <!-- 4ページ目 除草に関する特記事項 -->
-    <h2>除草に関する特記事項</h2>
-    <table class="photo-table">
-        @foreach ($report->weedingNotes as $note)
-            <tr>
-                <td>
-                    <strong>{{ $note->title ?? '特記事項'.$i }}</strong>
-                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
-                        @if (!empty($note->photo_path))
-                            <img src="{{ storage_path('app/public/' . $note->photo_path) }}" alt="特記事項{{ $i }}写真">
-                        @else
-                            <div class="photo-placeholder"></div>
-                        @endif
-                    </div>
-                </td>
-                <td>
-                    <strong style="color: #fff">dummy</strong>
-                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box; min-height: 210px; position: relative;">
-                        @if (!empty($note->description))
-                            <p style="word-wrap: break-word; word-break: break-word; white-space: pre-line; text-align: left;">{{ $note->description }}</p>
-                        @else
-                            <div class="photo-placeholder"></div>
-                        @endif
-                    </div>
-                </td>
-            </tr>
-        @endforeach
-        @if ($report->specialNotes->isEmpty())
-            <tr>
-                <td colspan="2"><p>【特記事項がありません】</p></td>
-            </tr>
-        @endif
     </table>
 
     <!-- 下中央のロゴ -->
@@ -711,7 +670,7 @@ h2 {
                         <p style="word-wrap: break-word; word-break: break-word; white-space: pre-line; text-align: left;">{{ $report->remarks }}</p>
                     @else
                         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; height: 90%; box-sizing: border-box;">
-                            <div style="position: absolute; width: 172%; height: 1px; background-color: #000; transform: rotate(-50deg); top: 51%; left: -220px;"></div>
+                            <div style="position: absolute; width: 172%; height: 1px; background-color: #000; transform: rotate(-51deg); top: 51%; left: -220px;"></div>
                         </div>
                     @endif
                 </div>
