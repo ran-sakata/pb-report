@@ -24,6 +24,11 @@ class Report extends Model
         'inside_junction_box_photo',
     ];
 
+    protected $casts = [
+        'reported_at' => 'date',
+        'worked_at' => 'date',
+    ];
+
     public function rowPhotos()
     {
         return $this->hasMany(RowPhoto::class);

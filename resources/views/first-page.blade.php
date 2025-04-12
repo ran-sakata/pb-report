@@ -26,7 +26,7 @@
                         type="date" 
                         id="date" 
                         name="reported_at" 
-                        value="{{ old('date', $report?->reported_at ?? date('Y-m-d')) }}" 
+                        value="{{ old('date', $report?->reported_at->format('Y-m-d') ?? date('Y-m-d')) }}" 
                         required 
                         class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                     @error('reported_at')
@@ -39,7 +39,7 @@
                         type="date" 
                         id="worked_at" 
                         name="worked_at" 
-                        value="{{ old('worked_at', $report?->worked_at ?? '') }}" 
+                        value="{{ old('worked_at', $report?->worked_at->format('Y-m-d') ?? '') }}" 
                         class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                     @error('worked_at')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
@@ -109,11 +109,6 @@
             </form>
             <div>
                 <a href="{{ route('welcome') }}" class="w-full inline-block bg-gray-600 dark:bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center mt-4">
-                    はじめに戻る
-                </a>
-            </div>
-            <div class="flex justify-between mt-4">
-                <a href="{{ route('welcome') }}" class="w-full bg-gray-500 dark:bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-600 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-300 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center">
                     はじめに戻る
                 </a>
             </div>

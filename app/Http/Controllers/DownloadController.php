@@ -20,7 +20,7 @@ class DownloadController extends Controller
             'logoBase64' => $logoBase64,
         ]);
 
-        return $pdf->stream('作業報告書.pdf', [
+        return $pdf->stream($report->worked_at->format('Ymd').$report->plant_name.'作業報告書.pdf', [
             'Attachment' => false,
         ]);
     }
