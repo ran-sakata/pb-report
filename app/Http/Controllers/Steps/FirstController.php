@@ -13,7 +13,7 @@ class FirstController extends Controller
      */
     public function create()
     {
-        return view('first-page');
+        return view('first-page', ['report' => null]);
     }
 
     /**
