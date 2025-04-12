@@ -15,8 +15,11 @@ class DownloadController extends Controller
     {
         $logoPath = storage_path('images/logo.jpg');
         $logoBase64 = base64_encode(file_get_contents($logoPath));
+        $data = $report;
+        $data->worked_at = $report->worked_at?->format('Y-m-d');
+        $data->reported_at = $report->reported_at?->format('Y-m-d');
         $pdf = app(PDF::class)->loadView('report', [
-            'report' => $report,
+            'report' => $data,
             'logoBase64' => $logoBase64,
         ]);
 
