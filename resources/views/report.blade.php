@@ -184,7 +184,7 @@ h2 {
     @endif
 
     <!-- タイトル -->
-    <h1>【{{ $report->plant_name }}】太陽光発電所<br />メンテナンス点検報告書</h1>
+    <h1>【{{ $report->plant_name }}】<br />メンテナンス点検報告書</h1>
 
     <!-- 基本情報 -->
     <div class="basic-info">
