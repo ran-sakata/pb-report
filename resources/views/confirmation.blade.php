@@ -45,7 +45,7 @@
                 </tbody>
             </table>
             <div class="mt-4">
-                <a href="{{ route('edit', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">基本情報を編集する</a>
+                <a href="{{ route('report.edit', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">基本情報を編集する</a>
             </div>
         </div>
 
