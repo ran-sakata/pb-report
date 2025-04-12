@@ -500,7 +500,7 @@ h2 {
                     @if (isset($report->powerConverterOverviewPhotos[$i]))
                         <img src="{{ storage_path('app/public/' . $report->powerConverterOverviewPhotos[$i]->photo_path) }}" alt="パワコン全景{{ $i + 1 }}画像" class="h-32 object-contain rounded-md">
                     @else
-                        <p>【パワコン全景{{ $i }}画像】</p>
+                        <p>【パワコン全景{{ $i + 1 }}画像】</p>
                     @endif
                     </div>
                 </td>
@@ -509,17 +509,12 @@ h2 {
                     @if (isset($report->powerConverterOverviewPhotos[$i + 1]))
                         <img src="{{ storage_path('app/public/' . $report->powerConverterOverviewPhotos[$i + 1]->photo_path) }}" alt="パワコン全景{{ $i + 2 }}画像" class="h-32 object-contain rounded-md">
                     @else
-                        <p>【パワコン全景{{ $i + 1 }}画像】</p>
+                        <p>【パワコン全景{{ $i + 2 }}画像】</p>
                     @endif
                     </div>
                 </td>
             </tr>
         @endfor
-        @if ($report->powerConverterOverviewPhotos->isEmpty())
-            <tr>
-                <td colspan="2"><p>【パワコン全景画像がありません】</p></td>
-            </tr>
-        @endif
     </table>
 
     <!-- 下中央のロゴ -->
