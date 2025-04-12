@@ -662,7 +662,7 @@ h2 {
                 <td>
                     <strong>{{ $note?->title ?? '特記事項'.$i }}</strong>
                     <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
-                        @if ($note)
+                        @if ($note?->photo_patj)
                             <img src="{{ storage_path('app/public/' . $note->photo_path) }}" alt="特記事項{{ $i }}画像">
                         @else
                             <p>【特記事項{{ $i }}画像】</p>

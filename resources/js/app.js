@@ -63,7 +63,8 @@ window.addEventListener('scroll', () => {
     }
 });
 
-document.getElementById('loading-button').addEventListener('click', function (event) {
+
+document.getElementById('printing-button').addEventListener('click', function (event) {
     event.preventDefault();
     this.innerHTML = '<span class="block text-center">処理中...</span>';
     this.classList.add('opacity-50', 'pointer-events-none');

@@ -9,7 +9,7 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
         <div class="flex items-center justify-between mb-6">
-            <div class="flex-1">
+            <div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full">
                 <div class="h-2 bg-indigo-600 rounded-full" style="width: 50%;"></div>
             </div>
             <div class="flex space-x-2 text-sm text-gray-500 dark:text-gray-400 ml-4">

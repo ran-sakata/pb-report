@@ -6,10 +6,10 @@
         <title>報告書作成フォーム</title>
         @vite('resources/css/app.css')
     </head>
-    <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex items-center justify-center min-h-screen">
+    <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex items-center justify-center min-h-screen">
         <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
             <div class="flex items-center justify-between mb-6">
-                <div class="flex-1">
+                <div class="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full">
                     <div class="h-2 bg-indigo-600 rounded-full" style="width: 25%;"></div>
                 </div>
                 <div class="flex space-x-2 text-sm text-gray-500 dark:text-gray-400 ml-4">
@@ -18,7 +18,7 @@
             </div>
 
             <h1 class="text-2xl font-bold mb-6 text-center">報告書作成フォーム</h1>
-            <form action="{{ isset($report) ? route('report.edit', [ 'report' => $report?->id ]) : route('report.store') }}" method="POST" class="space-y-4">
+            <form action="{{ isset($report) && $report ? route('report.edit', ['report' => $report->id]) : route('report.store') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
                     <label for="reported_at" class="block text-base font-medium text-gray-700 dark:text-gray-300">実施報告日</label>
@@ -28,7 +28,7 @@
                         name="reported_at" 
                         value="{{ old('date', $report?->reported_at?->format('Y-m-d') ?? date('Y-m-d')) }}" 
                         required 
-                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm shadow-gray-300 focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                     @error('reported_at')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -40,7 +40,7 @@
                         id="worked_at" 
                         name="worked_at" 
                         value="{{ old('worked_at', $report?->worked_at?->format('Y-m-d') ?? '') }}" 
-                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                     @error('worked_at')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -52,7 +52,7 @@
                         id="plant_name" 
                         name="plant_name" 
                         value="{{ old('plant_name', $report?->plant_name ?? '') }}"
-                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                     @error('plant_name')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -64,7 +64,7 @@
                         id="property_address" 
                         name="property_address" 
                         value="{{ old('property_address', $report?->property_address ?? '') }}"
-                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        class="text-lg mt-1 block w-full border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-indigo-400 dark:focus:border-indigo-400 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                 </div>
                 <div>
                     <span class="block text-base font-medium text-gray-700 dark:text-gray-300">天気</span>

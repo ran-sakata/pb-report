@@ -13,7 +13,9 @@ class FirstController extends Controller
      */
     public function create()
     {
-        return view('first-page', ['report' => null]);
+        return view('first-page', [
+            'report' => null
+        ]);
     }
 
     /**
@@ -31,7 +33,7 @@ class FirstController extends Controller
 
         $report = Report::create($validated);
 
-        return redirect()->route('second-page', ['report' => $report->id])->with('message', '報告書を作成しました');
+        return to_route('second-page', ['report' => $report->id])->with('message', '報告書を作成しました');
     }
 
     /**
@@ -57,7 +59,7 @@ class FirstController extends Controller
             'weather' => 'nullable|in:晴れ,曇り,雨',
         ]);
 
-        $report->update($validated);
+        $report->fill($validated)->save();
 
         return to_route('second-page', ['report' => $report->id])->with('message', '報告書を更新しました');
     }
