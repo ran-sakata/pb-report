@@ -158,6 +158,24 @@ h2 {
     width: 30px;
     height: auto;
 }
+.photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    border: 1px solid #000;
+    background: repeating-linear-gradient(
+        45deg,
+        #ccc,
+        #ccc 10px,
+        #fff 10px,
+        #fff 20px
+    );
+    box-sizing: border-box;
+    font-size: 14px;
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -619,7 +637,7 @@ h2 {
                         @if ($photo1 = $report->panelConditionPhotos->get($i))
                             <img src="{{ storage_path('app/public/' . $photo1->photo_path) }}" alt="パネル汚れ{{ $i + 1 }}画像">
                         @else
-                            <p>【パネル汚れ{{ $i + 1 }}画像】</p>
+                            <div class="photo-placeholder">【パネル汚れ{{ $i + 1 }}画像】</div>
                         @endif
                     </div>
                 </td>
@@ -628,7 +646,7 @@ h2 {
                         @if ($photo2 = $report->panelConditionPhotos->get($i + 1))
                             <img src="{{ storage_path('app/public/' . $photo2->photo_path) }}" alt="パネル汚れ{{ $i + 2 }}画像">
                         @else
-                            <p>【パネル汚れ{{ $i + 2 }}画像】</p>
+                            <div class="photo-placeholder">【パネル汚れ{{ $i + 2 }}画像】</div>
                         @endif
                     </div>
                 </td>
