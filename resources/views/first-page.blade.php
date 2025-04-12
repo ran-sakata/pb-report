@@ -112,6 +112,11 @@
                     はじめに戻る
                 </a>
             </div>
+            <div class="flex justify-between mt-4">
+                <a href="{{ route('welcome') }}" class="w-full bg-gray-500 dark:bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-gray-600 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-300 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center">
+                    はじめに戻る
+                </a>
+            </div>
         </div>
         @vite('resources/js/app.js')
     </body>
