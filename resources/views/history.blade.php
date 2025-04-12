@@ -9,6 +9,21 @@
     <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex items-center justify-center min-h-screen">
         <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-4xl">
             <h1 class="text-2xl font-bold mb-6 text-center">作成済みの報告書</h1>
+            <div class="mb-6 text-center">
+                <form method="GET" action="{{ route('history') }}" class="inline-block">
+                    <div class="flex items-center justify-center space-x-4">
+                        <label for="sort" class="text-sm font-medium text-gray-700 dark:text-gray-300">並び替え:</label>
+                        <select name="sort" id="sort" class="text-sm border-gray-300 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:text-gray-300" onchange="this.form.submit()">
+                            <option value="updated_at__desc" {{ request('sort') === 'updated_at__desc' ? 'selected' : '' }}>更新日時の新しい順</option>
+                            <option value="updated_at__asc" {{ request('sort') === 'updated_at__asc' ? 'selected' : '' }}>更新日時の古い順</option>
+                            <option value="reported_at__desc" {{ request('sort') === 'reported_at__desc' ? 'selected' : '' }}>実施報告日の新しい順</option>
+                            <option value="reported_at__asc" {{ request('sort') === 'reported_at__asc' ? 'selected' : '' }}>実施報告日の古い順</option>
+                            <option value="worked_at__desc" {{ request('sort') === 'worked_at__desc' ? 'selected' : '' }}>作業日の新しい順</option>
+                            <option value="worked_at__asc" {{ request('sort') === 'worked_at__asc' ? 'selected' : '' }}>作業日の古い順</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
             <ul class="space-y-4">
                 @forelse ($reports as $report)
                     <a href="{{ route('report.edit', ['report' => $report->id]) }}" class="block bg-white dark:bg-gray-800 p-4 rounded shadow hover:bg-gray-100 dark:hover:bg-gray-700">
