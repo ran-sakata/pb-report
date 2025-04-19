@@ -101,14 +101,14 @@
                 </div>
             </div>
 
-            <!-- パネルアレイ -->
+            <!-- 架台 -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">パネルアレイ</h2>
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">架台</h2>
                 <input type="file" id="panel_array_photo" name="panel_array_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="panel_array_preview">
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
                 <div id="panel_array_preview" class="preview-container flex flex-wrap gap-2 mt-2">
                     @foreach ($report->panelArrayPhotos as $photo)
-                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネルアレイ画像" class="h-32 object-contain rounded-md">
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="架台画像" class="h-32 object-contain rounded-md">
                     @endforeach
                 </div>
             </div>

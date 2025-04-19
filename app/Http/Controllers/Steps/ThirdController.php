@@ -105,7 +105,7 @@ class ThirdController extends Controller
             }
         }
 
-        // パネルアレイの写真
+        // 架台の写真
         if ($request->hasFile('panel_array_photo')) {
             foreach ($report->panelArrayPhotos as $photo) {
                 Storage::disk('public')->delete($photo->photo_path);

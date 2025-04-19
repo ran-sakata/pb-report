@@ -162,11 +162,11 @@
                 @endif
             </div>
 
-            <!-- パネルアレイ -->
+            <!-- 架台 -->
             <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パネルアレイ</h3>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">架台</h3>
                 @foreach ($report->panelArrayPhotos as $photo)
-                    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネルアレイ画像" class="mt-2 max-h-40 rounded-md">
+                    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="架台画像" class="mt-2 max-h-40 rounded-md">
                 @endforeach
                 @if ($report->panelArrayPhotos->isEmpty())
                     <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>

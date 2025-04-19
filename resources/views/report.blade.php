@@ -525,12 +525,12 @@ h2 {
 
     <div style="page-break-after: always;"></div>
 
-    <!-- 9ページ目 目視点検 パネルアレイ -->
+    <!-- 9ページ目 目視点検 架台 -->
     <h2>目視点検</h2>
     <table class="photo-table">
         <tr>
             <td colspan="2">
-                <strong>パネルアレイ</strong>
+                <strong>架台</strong>
             </td>
         </tr>
         @for ($i = 0; $i < 6; $i += 2)
@@ -540,7 +540,7 @@ h2 {
                 <td>
                     <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
                         @if ($panel1 && $panel1->photo_path)
-                            <img src="{{ storage_path('app/public/' . $panel1->photo_path) }}" alt="パネルアレイ{{ $i + 1 }}画像">
+                            <img src="{{ storage_path('app/public/' . $panel1->photo_path) }}" alt="架台{{ $i + 1 }}画像">
                         @else
                             <div class="photo-placeholder"></div>
                         @endif
@@ -549,7 +549,7 @@ h2 {
                 <td>
                     <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
                         @if ($panel2 && $panel2->photo_path)
-                            <img src="{{ storage_path('app/public/' . $panel2->photo_path) }}" alt="パネルアレイ{{ $i + 2 }}画像">
+                            <img src="{{ storage_path('app/public/' . $panel2->photo_path) }}" alt="架台{{ $i + 2 }}画像">
                         @else
                             <div class="photo-placeholder"></div>
                         @endif
