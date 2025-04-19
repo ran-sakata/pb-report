@@ -34,12 +34,12 @@
                             </div>
                             <div class="flex">
                                 <span class="w-24 text-sm font-medium text-gray-700 dark:text-gray-300">実施報告日:</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">{{ $report->reported_at }}</span>
+                                <span class="text-sm text-gray-500 dark:text-gray-400">{{ $report->reported_at ? $report->reported_at->format('Y-m-d') : '入力されていません' }}</span>
                             </div>
                             <div class="flex">
                                 <span class="w-24 text-sm font-medium text-gray-700 dark:text-gray-300">作業日:</span>
                                 <span class="text-sm text-gray-500 dark:text-gray-400">
-                                    {{ $report->worked_at ? $report->worked_at : '入力されていません' }}
+                                    {{ $report->worked_at ? $report->worked_at->format('Y-m-d') : '入力されていません' }}
                                 </span>
                             </div>
                             <div class="flex">
