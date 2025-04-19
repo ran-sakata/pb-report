@@ -92,26 +92,6 @@ p {
 .table th {
     background-color: #f2f2f2;
 }
-.photo-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-.photo-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-.photo-item {
-    flex-basis: 50%; /* 各アイテムの幅 */
-}
-.photo-item img {
-    max-width: 100%;
-    max-height: 150px;
-    margin-top: 10px;
-    border: 1px solid #000;
-}
 .photo-table {
     width: 100%;
     margin-top: 20px;
@@ -126,9 +106,10 @@ p {
 }
 .photo-table img {
     max-width: 100%;
-    max-height: 200px; /* 高さを200pxに拡大 */
+    height: 190px;
     margin-top: 10px;
     box-sizing: border-box; /* 枠線を含めたサイズ調整 */
+    object-fit: contain; /* 縦横比を維持 */
 }
 .photo-table p {
     width: 90%; /* 横幅を調整 */

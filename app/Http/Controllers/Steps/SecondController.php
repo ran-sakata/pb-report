@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Maestroerror\HeicToJpg;
+use App\Services\ImageResizer;
 
 class SecondController extends Controller
 {
@@ -51,7 +52,7 @@ class SecondController extends Controller
 
                 // 新しい画像を保存
                 $file = $request->file("row_{$i}_photo_path");
-                $path = $file->store('photos', 'public');
+                $path = ImageResizer::resizeAndSave($file);
 
                 // データベースを更新または作成
                 $report->rowPhotos()->updateOrCreate(
@@ -70,13 +71,8 @@ class SecondController extends Controller
 
             // 新しい画像を保存
             $file = $request->file('signboard_photo_path');
-            if ($file->getClientOriginalExtension() === 'heic') {
-                $path = 'photos/' . uniqid() . '.jpg';
-                HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
-                $report->signboard_photo_path = $path;
-            } else {
-                $report->signboard_photo_path = $file->store('photos', 'public');
-            }
+            $path = ImageResizer::resizeAndSave($file);
+            $report->signboard_photo_path = $path;
             $report->save();
         }
 
@@ -90,7 +86,7 @@ class SecondController extends Controller
 
             // 新しい画像を保存
             foreach ($request->file('east_photo_path') as $file) {
-                $path = $file->store('photos', 'public');
+                $path = ImageResizer::resizeAndSave($file);
                 $report->eastPathPhotos()->create(['photo_path' => $path]);
             }
         }
@@ -105,7 +101,7 @@ class SecondController extends Controller
 
             // 新しい画像を保存
             foreach ($request->file('south_photo_path') as $file) {
-                $path = $file->store('photos', 'public');
+                $path = ImageResizer::resizeAndSave($file);
                 $report->southPathPhotos()->create(['photo_path' => $path]);
             }
         }

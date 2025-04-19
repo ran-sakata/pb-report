@@ -6,7 +6,7 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Maestroerror\HeicToJpg;
+use App\Services\ImageResizer;
 
 class ForthController extends Controller
 {
@@ -50,16 +50,10 @@ class ForthController extends Controller
                 if ($existingNote && $existingNote->photo_path) {
                     Storage::disk('public')->delete($existingNote->photo_path);
                 }
-            }
-            if ($request->hasFile("special_note_photo_{$i}")) {
+
+                // 新しい画像を保存
                 $file = $request->file("special_note_photo_{$i}");
-                // HEIC形式の画像をJPEGに変換
-                if ($file->getClientOriginalExtension() === 'heic') {
-                    $path = 'photos/' . uniqid() . '.jpg';
-                    HeicToJpg::convert($file->getPathname(), storage_path("app/public/{$path}"));
-                } else {
-                    $path = $file->store('photos', 'public');
-                }
+                $path = ImageResizer::resizeAndSave($file);
 
                 $report->specialNotes()->updateOrCreate(
                     ['report_id' => $report->id, 'index' => $i],
