@@ -72,20 +72,6 @@
                 </div>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像（最大10MBまで）アップロードしてください。</p>
             </div>
-
-            <!-- 南側通路 -->
-            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">南側通路</h2>
-                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">最大6件まで添付可能</p>
-                <input type="file" id="south_photo_path" name="south_photo_path[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="south_path_preview">
-                <div id="south_path_preview" class="preview-container flex flex-wrap gap-2 mt-2">
-                    @foreach ($report->southPathPhotos as $photo)
-                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="プレビュー画像" class="h-32 object-contain rounded-md">
-                    @endforeach
-                </div>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像（最大10MBまで）アップロードしてください。</p>
-            </div>
-
             <div class="flex justify-between">
                 <a href="{{ route('report.edit', ['report' => $report->id] )}}" class="w-1/2 bg-gray-600 dark:bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-800 text-center mr-2">
                     前へ

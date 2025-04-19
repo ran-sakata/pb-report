@@ -18,7 +18,7 @@ class ThirdController extends Controller
     {
         $report->load([
             'powerConverters',
-            'powerConverterOverviewPhotos',
+            'powerConverterPhotos',
             'pipePuttyPhotos',
             'panelArrayPhotos',
             'panelConditionPhotos',
@@ -36,10 +36,14 @@ class ThirdController extends Controller
         $validated = $request->validate([
             'junction_box_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240',
             'inside_junction_box_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240',
-            'power_converter_overview_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240',
+            'power_converter_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240',
             'pipe_putty_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240',
             'panel_array_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240',
             'panel_condition_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240',
+            'power_converter_status' => 'nullable|string|in:〇,△,×',
+            'pipe_putty_status' => 'nullable|string|in:〇,△,×',
+            'panel_array_status' => 'nullable|string|in:〇,△,×',
+            'panel_condition_status' => 'nullable|string|in:〇,△,×',
         ]);
 
         // 集電箱の写真
@@ -82,14 +86,14 @@ class ThirdController extends Controller
         }
 
         // パワコン全景の写真
-        if ($request->hasFile('power_converter_overview_photo')) {
-            foreach ($report->powerConverterOverviewPhotos as $photo) {
+        if ($request->hasFile('power_converter_photo')) {
+            foreach ($report->powerConverterPhotos as $photo) {
                 Storage::disk('public')->delete($photo->photo_path);
                 $photo->delete();
             }
-            foreach ($request->file('power_converter_overview_photo') as $file) {
+            foreach ($request->file('power_converter_photo') as $file) {
                 $path = ImageResizer::resizeAndSave($file);
-                $report->powerConverterOverviewPhotos()->create(['photo_path' => $path]);
+                $report->powerConverterPhotos()->create(['photo_path' => $path]);
             }
         }
 
@@ -127,6 +131,26 @@ class ThirdController extends Controller
                 $path = ImageResizer::resizeAndSave($file);
                 $report->panelConditionPhotos()->create(['photo_path' => $path]);
             }
+        }
+
+        // パワコン状態の保存
+        if ($request->filled('power_converter_status')) {
+            $report->power_converter_status = $request->input('power_converter_status');
+        }
+
+        // 配管パテ状態の保存
+        if ($request->filled('pipe_putty_status')) {
+            $report->pipe_putty_status = $request->input('pipe_putty_status');
+        }
+
+        // 架台状態の保存
+        if ($request->filled('panel_array_status')) {
+            $report->panel_array_status = $request->input('panel_array_status');
+        }
+
+        // パネル汚れ状態の保存
+        if ($request->filled('panel_condition_status')) {
+            $report->panel_condition_status = $request->input('panel_condition_status');
         }
 
         $report->save();

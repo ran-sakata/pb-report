@@ -75,15 +75,31 @@
                 @endfor
             </div>
 
-            <!-- パワコン全景 -->
+            <!-- パワコン -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パワコン全景</h2>
-                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">最大6件まで添付可能</p>
-                <input type="file" id="power_converter_overview_photo" name="power_converter_overview_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="power_converter_overview_preview">
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
-                <div id="power_converter_overview_preview" class="preview-container flex flex-wrap gap-2 mt-2">
-                    @foreach ($report->powerConverterOverviewPhotos as $photo)
-                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン全景画像" class="h-32 object-contain rounded-md">
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パワコン</h2>
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">状態と全景画像を入力してください。</p>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">状態</p>
+                <div class="space-y-2 flex items-center space-x-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="power_converter_status" value="〇" {{ old('power_converter_status', $report->power_converter_status ?? '〇') === '〇' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">〇</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="power_converter_status" value="△" {{ old('power_converter_status', $report->power_converter_status ?? '〇') === '△' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">△</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="power_converter_status" value="×" {{ old('power_converter_status', $report->power_converter_status ?? '〇') === '×' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">×</span>
+                    </label>
+                </div>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mt-4 mb-4">パワコン全景（最大6件まで添付可能）</p>
+                <input type="file" id="power_converter_photo" name="power_converter_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="power_converter_preview">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像をアップロードしてください。</p>
+                <div id="power_converter_preview" class="preview-container flex flex-wrap gap-2 mt-2">
+                    @foreach ($report->powerConverterPhotos as $photo)
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン画像" class="h-32 object-contain rounded-md">
                     @endforeach
                 </div>
             </div>
@@ -91,9 +107,25 @@
             <!-- 配管パテ -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">配管パテ</h2>
-                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">最大6件まで添付可能</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">状態と画像を入力してください。</p>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">状態</p>
+                <div class="space-y-2 flex items-center space-x-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="pipe_putty_status" value="〇" {{ old('pipe_putty_status', $report->pipe_putty_status ?? '〇') === '〇' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">〇</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="pipe_putty_status" value="△" {{ old('pipe_putty_status', $report->pipe_putty_status ?? '〇') === '△' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">△</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="pipe_putty_status" value="×" {{ old('pipe_putty_status', $report->pipe_putty_status ?? '〇') === '×' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">×</span>
+                    </label>
+                </div>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mt-4 mb-4">画像（最大6件まで添付可能）</p>
                 <input type="file" id="pipe_putty_photo" name="pipe_putty_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="pipe_putty_preview">
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像をアップロードしてください。</p>
                 <div id="pipe_putty_preview" class="preview-container flex flex-wrap gap-2 mt-2">
                     @foreach ($report->pipePuttyPhotos as $photo)
                         <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="配管パテ画像" class="h-32 object-contain rounded-md">
@@ -103,9 +135,26 @@
 
             <!-- 架台 -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">架台</h2>
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">架台</h2>
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">状態と画像を入力してください。</p>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">状態</p>
+                <div class="space-y-2 flex items-center space-x-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="panel_array_status" value="〇" {{ old('panel_array_status', $report->panel_array_status ?? '〇') === '〇' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">〇</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="panel_array_status" value="△" {{ old('panel_array_status', $report->panel_array_status ?? '〇') === '△' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">△</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="panel_array_status" value="×" {{ old('panel_array_status', $report->panel_array_status ?? '〇') === '×' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">×</span>
+                    </label>
+                </div>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mt-4 mb-4">画像（最大6件まで添付可能）</p>
                 <input type="file" id="panel_array_photo" name="panel_array_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="panel_array_preview">
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像をアップロードしてください。</p>
                 <div id="panel_array_preview" class="preview-container flex flex-wrap gap-2 mt-2">
                     @foreach ($report->panelArrayPhotos as $photo)
                         <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="架台画像" class="h-32 object-contain rounded-md">
@@ -113,14 +162,31 @@
                 </div>
             </div>
 
-            <!-- パネル汚れ有無 -->
+            <!-- パネル汚れ -->
             <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">パネル汚れ有無</h2>
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パネル汚れ</h2>
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">状態と画像を入力してください。</p>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mb-4">状態</p>
+                <div class="space-y-2 flex items-center space-x-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="panel_condition_status" value="〇" {{ old('panel_condition_status', $report->panel_condition_status ?? '〇') === '〇' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">〇</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="panel_condition_status" value="△" {{ old('panel_condition_status', $report->panel_condition_status ?? '〇') === '△' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">△</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="panel_condition_status" value="×" {{ old('panel_condition_status', $report->panel_condition_status ?? '〇') === '×' ? 'checked' : '' }} class="text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-600">
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300 items-center">×</span>
+                    </label>
+                </div>
+                <p class="block text-base font-medium text-gray-700 dark:text-gray-300 mt-4 mb-4">画像（最大6件まで添付可能）</p>
                 <input type="file" id="panel_condition_photo" name="panel_condition_photo[]" accept="image/*" multiple class="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 preview-input" data-preview-target="panel_condition_preview">
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像を最大6件（各10MBまで）アップロードしてください。</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, JPG, GIF形式の画像をアップロードしてください。</p>
                 <div id="panel_condition_preview" class="preview-container flex flex-wrap gap-2 mt-2">
                     @foreach ($report->panelConditionPhotos as $photo)
-                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネル汚れ有無画像" class="h-32 object-contain rounded-md">
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネル汚れ画像" class="h-32 object-contain rounded-md">
                     @endforeach
                 </div>
             </div>

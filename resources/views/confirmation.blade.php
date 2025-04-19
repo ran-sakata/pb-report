@@ -24,11 +24,11 @@
                 <tbody>
                     <tr>
                         <th class="py-2 font-medium text-gray-900 dark:text-gray-100">実施報告日</th>
-                        <td class="py-2">{{ $report->reported_at }}</td>
+                        <td class="py-2">{{ $report->reported_at ? $report->reported_at->format('Y年n月j日') : '' }}</td>
                     </tr>
                     <tr>
                         <th class="py-2 font-medium text-gray-900 dark:text-gray-100">作業日</th>
-                        <td class="py-2">{{ $report->worked_at }}</td>
+                        <td class="py-2">{{ $report->worked_at ? $report->worked_at->format('Y年n月j日') : '' }}</td>
                     </tr>
                     <tr>
                         <th class="py-2 font-medium text-gray-900 dark:text-gray-100">発電所名</th>
@@ -87,17 +87,6 @@
                 @endif
             </div>
 
-            <!-- 南側通路 -->
-            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2 mt-6">南側通路</h3>
-            <div class="flex flex-wrap gap-2">
-                @foreach ($report->southPathPhotos as $photo)
-                    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="南側通路写真" class="mt-2 max-h-40 rounded-md">
-                @endforeach
-                @if ($report->southPathPhotos->isEmpty())
-                    <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
-                @endif
-            </div>
-
             <div class="mt-4">
                 <a href="{{ route('second-page', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">目視点検１を編集する</a>
             </div>
@@ -127,26 +116,14 @@
                 @endif
             </div>
 
-            <!-- パワコン1～10台目 -->
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パワコン1～10台目</h3>
-                @for ($i = 1; $i <= 10; $i++)
-                    <p class="text-sm text-gray-700 dark:text-gray-300"><strong>パワコン{{ $i }}台目:</strong></p>
-                    @if ($photo = $report->powerConverters->firstWhere('index', $i))
-                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン{{ $i }}台目の写真" class="mt-2 max-h-40 rounded-md">
-                    @else
-                        <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
-                    @endif
-                @endfor
-            </div>
-
             <!-- パワコン全景 -->
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パワコン全景</h3>
-                @foreach ($report->powerConverterOverviewPhotos as $photo)
+                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->power_converter_status ?? '未選択' }}</p>
+                @foreach ($report->powerConverterPhotos as $photo)
                     <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン全景画像" class="mt-2 max-h-40 rounded-md">
                 @endforeach
-                @if ($report->powerConverterOverviewPhotos->isEmpty())
+                @if ($report->powerConverterPhotos->isEmpty())
                     <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
                 @endif
             </div>
@@ -154,6 +131,7 @@
             <!-- 配管パテ -->
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">配管パテ</h3>
+                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->pipe_putty_status ?? '未選択' }}</p>
                 @foreach ($report->pipePuttyPhotos as $photo)
                     <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="配管パテ画像" class="mt-2 max-h-40 rounded-md">
                 @endforeach
@@ -165,6 +143,7 @@
             <!-- 架台 -->
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">架台</h3>
+                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->panel_array_status ?? '未選択' }}</p>
                 @foreach ($report->panelArrayPhotos as $photo)
                     <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="架台画像" class="mt-2 max-h-40 rounded-md">
                 @endforeach
@@ -175,7 +154,8 @@
 
             <!-- パネル汚れ有無 -->
             <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パネル汚れ有無</h3>
+                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パネル汚れ</h3>
+                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->panel_condition_status ?? '未選択' }}</p>
                 @foreach ($report->panelConditionPhotos as $photo)
                     <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネル汚れ有無画像" class="mt-2 max-h-40 rounded-md">
                 @endforeach

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('weeding_notes');
+        Schema::dropIfExists('south_path_photos');
     }
 
     /**
@@ -19,13 +19,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::create('weeding_notes', function (Blueprint $table) {
+        Schema::create('south_path_photos', function (Blueprint $table) {
             $table->ulid('id')->primary(); // 主キー
             $table->foreignUlid('report_id')->constrained('reports')->onDelete('cascade'); // リレーション
-            $table->unsignedBigInteger('index'); // インデックス
-            $table->string('title')->nullable(); // 特記事項のタイトル
-            $table->string('photo_path')->nullable(); // 写真パス
-            $table->text('description')->nullable(); // 説明
+            $table->string('photo_path'); // 写真パス
             $table->datetimes();
         });
     }

@@ -180,7 +180,7 @@ h2 {
             </tr>
             <tr>
                 <th>作業日</th>
-                <td>{{ $report->worked_at }}</td>
+                <td>{{ $report->worked_at ? $report->worked_at->format('Y年n月j日') : '' }}</td>
             </tr>
             <tr>
                 <th>天候</th>
@@ -188,7 +188,7 @@ h2 {
             </tr>
             <tr>
                 <th>点検報告日</th>
-                <td>{{ $report->reported_at }}</td>
+                <td>{{ $report->reported_at ? $report->reported_at->format('Y年n月j日') : '' }}</td>
             </tr>
         </table>
     </div>
@@ -317,42 +317,6 @@ h2 {
 
     <div style="page-break-after: always;"></div>
 
-    <!-- 追加ページ 南側通路 -->
-    <h2>目視点検</h2>
-    <table class="photo-table">
-        @for ($i = 1; $i <= 6; $i += 2)
-            <tr>
-                <td>
-                    <strong>南側通路{{ $i }}</strong>
-                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
-                        @if ($photo = $report->southPathPhotos->get($i - 1))
-                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南側通路{{ $i }}画像">
-                        @else
-                            <div class="photo-placeholder"></div>
-                        @endif
-                    </div>
-                </td>
-                <td>
-                    <strong>南側通路{{ $i + 1 }}</strong>
-                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
-                        @if ($photo = $report->southPathPhotos->get($i))
-                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="南側通路{{ $i + 1 }}画像">
-                        @else
-                            <div class="photo-placeholder"></div>
-                        @endif
-                    </div>
-                </td>
-            </tr>
-        @endfor
-    </table>
-
-    <!-- 下中央のロゴ -->
-    @if ($logoBase64)
-        <img src="data:image/jpg;base64,{{ $logoBase64 }}" alt="ロゴ" class="logo-bottom">
-    @endif
-
-    <div style="page-break-after: always;"></div>
-
     <!-- 5ページ目 目視点検 -->
     <h2>目視点検</h2>
     <table class="photo-table">
@@ -398,7 +362,7 @@ h2 {
                         @else
                             <div class="photo-placeholder"></div>
                         @endif
-                    </div>
+                </div>
                 </td>
             </tr>
         @endfor
@@ -452,7 +416,7 @@ h2 {
     <table class="photo-table">
         <tr>
             <td colspan="2">
-                <strong>パワコン全景</strong>
+                <strong>パワコン全景（状態：{{ $report->power_converter_status }}）</strong>
             </td>
         </tr>
         @for ($i = 0; $i < 6 ; $i += 2)
@@ -490,7 +454,7 @@ h2 {
     <table class="photo-table">
         <tr>
             <td colspan="2">
-                <strong>配管パテ</strong>
+                <strong>配管パテ（状態：{{ $report->pipe_putty_status }}）</strong>
             </td>
         </tr>
         @for ($i = 0; $i < 6; $i += 2)
@@ -530,7 +494,7 @@ h2 {
     <table class="photo-table">
         <tr>
             <td colspan="2">
-                <strong>架台</strong>
+                <strong>架台（状態：{{ $report->panel_array_status }}）</strong>
             </td>
         </tr>
         @for ($i = 0; $i < 6; $i += 2)
@@ -565,12 +529,12 @@ h2 {
 
     <div style="page-break-after: always;"></div>
 
-    <!-- 10ページ目 目視点検 パネル汚れの有無 -->
+    <!-- 10ページ目 目視点検 パネル汚れ -->
     <h2>目視点検</h2>
     <table class="photo-table">
         <tr>
             <td colspan="2">
-                <strong>パネル汚れの有無</strong>
+                <strong>パネル汚れ（状態：{{ $report->panel_condition_status }}）</strong>
             </td>
         </tr>
         @for ($i = 0; $i < 6; $i += 2)

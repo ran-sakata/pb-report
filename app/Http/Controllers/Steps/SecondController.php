@@ -6,7 +6,6 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Maestroerror\HeicToJpg;
 use App\Services\ImageResizer;
 
 class SecondController extends Controller
@@ -18,7 +17,6 @@ class SecondController extends Controller
     {
         $report->load([
             'eastPathPhotos',
-            'southPathPhotos',
         ]);
         return view('second-page', ['report' => $report]);
     }
@@ -32,8 +30,6 @@ class SecondController extends Controller
             'signboard_photo_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240', // 看板写真
             'east_photo_path.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240', // 東側通路
             'east_photo_path' => 'nullable|array|max:6', // 最大6件
-            'south_photo_path.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,heic|max:10240', // 南側通路
-            'south_photo_path' => 'nullable|array|max:6', // 最大6件
         ]);
 
         // データベースを更新
@@ -88,21 +84,6 @@ class SecondController extends Controller
             foreach ($request->file('east_photo_path') as $file) {
                 $path = ImageResizer::resizeAndSave($file);
                 $report->eastPathPhotos()->create(['photo_path' => $path]);
-            }
-        }
-
-        // 南側通路の保存処理
-        if ($request->hasFile('south_photo_path')) {
-            // 既存の画像を削除
-            foreach ($report->southPathPhotos as $photo) {
-                Storage::disk('public')->delete($photo->photo_path);
-                $photo->delete();
-            }
-
-            // 新しい画像を保存
-            foreach ($request->file('south_photo_path') as $file) {
-                $path = ImageResizer::resizeAndSave($file);
-                $report->southPathPhotos()->create(['photo_path' => $path]);
             }
         }
 

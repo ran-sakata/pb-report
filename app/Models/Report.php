@@ -22,6 +22,10 @@ class Report extends Model
         'signboard_photo_path',
         'junction_box_photo',
         'inside_junction_box_photo',
+        'power_converter_status',
+        'pipe_putty_status',
+        'panel_array_status',
+        'panel_condition_status',
     ];
 
     protected $casts = [
@@ -39,14 +43,9 @@ class Report extends Model
         return $this->hasMany(EastPathPhoto::class);
     }
 
-    public function southPathPhotos()
+    public function powerConverterPhotos()
     {
-        return $this->hasMany(SouthPathPhoto::class);
-    }
-
-    public function powerConverterOverviewPhotos()
-    {
-        return $this->hasMany(PowerConverterOverviewPhoto::class);
+        return $this->hasMany(PowerConverterPhoto::class);
     }
 
     public function pipePuttyPhotos()
