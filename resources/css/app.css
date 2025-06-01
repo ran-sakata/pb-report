@@ -9,3 +9,9 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.quicknav-current {
+    background-color: rgba(99,102,241,0.8) !important; /* indigo-600/80 */
+    color: #fff !important;
+}

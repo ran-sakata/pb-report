@@ -20,8 +20,11 @@ class Report extends Model
         'property_address',
         'weather',
         'signboard_photo_path',
+        'signboard_thumbnail_path',
         'junction_box_photo',
+        'junction_box_thumbnail_path',
         'inside_junction_box_photo',
+        'junction_box_thumbnail_path',
         'power_converter_status',
         'pipe_putty_status',
         'panel_array_status',
@@ -40,7 +43,12 @@ class Report extends Model
 
     public function eastPathPhotos()
     {
-        return $this->hasMany(EastPathPhoto::class);
+        return $this->hasMany(EastPathPhoto::class)->orderBy('row_number');
+    }
+
+    public function westPathPhotos()
+    {
+        return $this->hasMany(WestPathPhoto::class)->orderBy('row_number');
     }
 
     public function powerConverterPhotos()
@@ -50,17 +58,17 @@ class Report extends Model
 
     public function pipePuttyPhotos()
     {
-        return $this->hasMany(PipePuttyPhoto::class);
+        return $this->hasMany(PipePuttyPhoto::class)->orderBy('index');
     }
 
     public function panelArrayPhotos()
     {
-        return $this->hasMany(PanelArrayPhoto::class);
+        return $this->hasMany(PanelArrayPhoto::class)->orderBy('index');
     }
 
     public function panelConditionPhotos()
     {
-        return $this->hasMany(PanelConditionPhoto::class);
+        return $this->hasMany(PanelConditionPhoto::class)->orderBy('index');
     }
     
     public function powerConverters()

@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DownloadController;
-use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\Steps\FirstController;
-use App\Http\Controllers\Steps\ForthController;
-use App\Http\Controllers\Steps\SecondController;
-use App\Http\Controllers\Steps\ThirdController;
+use App\Http\Controllers\Steps\RemarkController;
+use App\Http\Controllers\Inspection\FirstController as InspectionFirstController;
+use App\Http\Controllers\Inspection\SecondController as InspectionSecondController;
+use App\Http\Controllers\Inspection\ThirdController as InspectionThirdController;
+use App\Http\Controllers\Inspection\ForthController as InspectionForthController;
 
 Route::controller(WelcomeController::class)->group(function () {
     Route::get('/', 'index')->name('welcome');
@@ -26,20 +27,13 @@ Route::controller(FirstController::class)->group(function () {
     Route::post('/edit/{report}', 'update')->name('report.update');
 });
 
-Route::controller(SecondController::class)->group(function () {
-    Route::get('/edit/{report}/second-page', 'index')->name('second-page');
-    Route::post('/edit/{report}/second-page', 'update')->name('second-page.update');
+Route::group(['prefix' => '/edit/{report}/inspection'], function () {
+    Route::get('/first', InspectionFirstController::class)->name('inspection.first');
+    Route::get('/second', InspectionSecondController::class)->name('inspection.second');
+    Route::get('/third', InspectionThirdController::class)->name('inspection.third');
+    Route::get('/forth', InspectionForthController::class)->name('inspection.forth');
 });
 
-Route::controller(ThirdController::class)->group(function () {
-    Route::get('/edit/{report}/third-page', 'index')->name('third-page');
-    Route::post('/edit/{report}/third-page', 'update')->name('third-page.update');
-});
-
-Route::controller(ForthController::class)->group(function () {
-    Route::get('/edit/{report}/forth-page', 'index')->name('forth-page');
-    Route::post('/edit/{report}/forth-page', 'update')->name('forth-page.update');
-});
-
+Route::get('/edit/{report}/remark', RemarkController::class)->name('remark');
 Route::get('/edit/{report}/confirmation', ConfirmationController::class)->name('confirmation');
 Route::get('/edit/{report}/download', DownloadController::class)->name('export');

@@ -12,7 +12,9 @@ class PanelArrayPhoto extends Model
 
     protected $fillable = [
         'report_id',
+        'index',
         'photo_path',
+        'thumbnail_path',
     ];
 
     public function report()

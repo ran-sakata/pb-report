@@ -13,6 +13,7 @@ class PowerConverter extends Model
         'report_id',
         'index',
         'photo_path',
+        'thumbnail_path',
     ];
 
     public function report()

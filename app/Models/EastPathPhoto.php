@@ -12,7 +12,9 @@ class EastPathPhoto extends Model
 
     protected $fillable = [
         'report_id',
+        'row_number',
         'photo_path',
+        'thumbnail_path',
     ];
 
     public function report()

@@ -19,6 +19,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('weeding_notes');
         Schema::create('weeding_notes', function (Blueprint $table) {
             $table->ulid('id')->primary(); // 主キー
             $table->foreignUlid('report_id')->constrained('reports')->onDelete('cascade'); // リレーション

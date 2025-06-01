@@ -33,7 +33,7 @@ class FirstController extends Controller
 
         $report = Report::create($validated);
 
-        return to_route('second-page', ['report' => $report->id])->with('message', '報告書を作成しました');
+        return to_route('inspection.first', ['report' => $report->id])->with('message', '報告書を作成しました');
     }
 
     /**
@@ -54,13 +54,13 @@ class FirstController extends Controller
         $validated = $request->validate([
             'reported_at' => 'required|date',
             'worked_at' => 'nullable|date',
-            'plant_name' => 'nullable|string|max:255',
-            'property_address' => 'nullable|string|max:255',
-            'weather' => 'nullable|in:晴れ,曇り,雨',
+            'plant_name' => 'required|string|max:255',
+            'property_address' => 'required|string|max:255',
+            'weather' => 'required|in:晴れ,曇り,雨',
         ]);
 
         $report->fill($validated)->save();
 
-        return to_route('second-page', ['report' => $report->id])->with('message', '報告書を更新しました');
+        return to_route('inspection.first', ['report' => $report->id])->with('message', '報告書を更新しました');
     }
 }

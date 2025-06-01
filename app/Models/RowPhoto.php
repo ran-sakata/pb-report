@@ -14,6 +14,7 @@ class RowPhoto extends Model
         'report_id',
         'row_number',
         'photo_path',
+        'thumbnail_path',
     ];
 
     public function report()
