@@ -97,6 +97,21 @@
                 @endif
             </div>
 
+            <!-- 西側通路 -->
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2 mt-6">西側通路</h3>
+            <div class="flex flex-wrap gap-2">
+                @foreach ($report->westPathPhotos as $photo)
+                    @if ($photo->thumbnail_path)
+                        <img src="{{ asset('storage/' . $photo->thumbnail_path) }}" alt="西側通路写真" class="mt-2 max-h-40 rounded-md">
+                    @else
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="西側通路写真" class="mt-2 max-h-40 rounded-md">
+                    @endif
+                @endforeach
+                @if ($report->westPathPhotos->isEmpty())
+                    <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
+                @endif
+            </div>
+
             <div class="mt-4">
                 <a href="{{ route('inspection.first', ['report' => $report->id]) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">目視点検１を編集する</a>
             </div>

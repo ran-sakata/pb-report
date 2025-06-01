@@ -284,7 +284,7 @@ h2 {
     <!-- 追加ページ 東側通路 -->
     <h2>目視点検</h2>
     <table class="photo-table">
-        @for ($i = 1; $i <= 6; $i += 2)
+        @for ($i = 1; $i <= 3; $i += 2)
             <tr>
                 <td>
                     <strong>東側通路{{ $i }}</strong>
@@ -297,6 +297,7 @@ h2 {
                     </div>
                 </td>
                 <td>
+                    @if ($i + 1 <= 3)
                     <strong>東側通路{{ $i + 1 }}</strong>
                     <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
                         @if ($photo = $report->eastPathPhotos->get($i))
@@ -305,6 +306,45 @@ h2 {
                             <div class="photo-placeholder"></div>
                         @endif
                     </div>
+                    @endif
+                </td>
+            </tr>
+        @endfor
+    </table>
+
+    <!-- 下中央のロゴ -->
+    @if ($logoBase64)
+        <img src="data:image/jpg;base64,{{ $logoBase64 }}" alt="ロゴ" class="logo-bottom">
+    @endif
+
+    <div style="page-break-after: always;"></div>
+
+    <!-- 西側通路 -->
+    <h2>目視点検</h2>
+    <table class="photo-table">
+        @for ($i = 1; $i <= 3; $i += 2)
+            <tr>
+                <td>
+                    <strong>西側通路{{ $i }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->westPathPhotos->get($i - 1))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="西側通路{{ $i }}画像">
+                        @else
+                            <div class="photo-placeholder"></div>
+                        @endif
+                    </div>
+                </td>
+                <td>
+                    @if ($i + 1 <= 3)
+                    <strong>西側通路{{ $i + 1 }}</strong>
+                    <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
+                        @if ($photo = $report->westPathPhotos->get($i))
+                            <img src="{{ storage_path('app/public/' . $photo->photo_path) }}" alt="西側通路{{ $i + 1 }}画像">
+                        @else
+                            <div class="photo-placeholder"></div>
+                        @endif
+                    </div>
+                    @endif
                 </td>
             </tr>
         @endfor
