@@ -119,6 +119,7 @@
             </div>
         </div>
         <h1 class="text-2xl font-bold mb-6 text-center">目視点検３</h1>
+        <div class="text-center text-base text-gray-600 dark:text-gray-300 mb-8">{{ $report->plant_name }}</div>
         {{-- アンカー: パワコン --}}
         <div id="power-converter" class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow mb-4 scroll-mt-24">
             <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パワコン</h2>

@@ -11,7 +11,7 @@
     <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
 
         <h1 class="text-2xl font-bold mb-6 text-center">内容確認</h1>
-
+        <div class="text-center text-base text-gray-600 dark:text-gray-300 mb-8">{{ $report->plant_name }}</div>
         @if (session('message'))
         <div id="flash-message" class="fixed bottom-15 right-4 bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded shadow-lg">
                 {{ session('message') }}
