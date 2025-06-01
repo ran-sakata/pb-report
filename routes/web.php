@@ -11,7 +11,14 @@ use App\Http\Controllers\Inspection\FirstController as InspectionFirstController
 use App\Http\Controllers\Inspection\SecondController as InspectionSecondController;
 use App\Http\Controllers\Inspection\ThirdController as InspectionThirdController;
 use App\Http\Controllers\Inspection\ForthController as InspectionForthController;
+use Livewire\Livewire;
 
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/livewire/update', $handle);
+});
+Livewire::setScriptRoute(function ($handle) {
+    return Route::get('/livewire/livewire.js', $handle);
+});
 Route::controller(WelcomeController::class)->group(function () {
     Route::get('/', 'index')->name('welcome');
 });
