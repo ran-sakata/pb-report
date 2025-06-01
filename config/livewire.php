@@ -157,4 +157,32 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
+
+    'routes' => [
+
+        /*
+        |-----------------------------------------------------------------------
+        | Livewire Update Route
+        |-----------------------------------------------------------------------
+        |
+        | This route is used to handle Livewire updates. You can change this to
+        | a different route if you want to customize it. The default is set to
+        | '/livewire/update' which is a common route for Livewire updates.
+        |
+        */
+        'update' => env('LIVEWIRE_UPDATE_ROUTE', '/livewire/update'),
+
+        /*
+        |-----------------------------------------------------------------------
+        | Livewire Script Route
+        |-----------------------------------------------------------------------
+        |
+        | This route is used to serve the Livewire JavaScript file. You can
+        | change this to a different route if you want to customize it.
+        |
+        */
+
+        'script' => env('LIVEWIRE_SCRIPT_ROUTE', '/livewire/livewire.js'),
+    ],
+
 ];

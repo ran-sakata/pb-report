@@ -14,10 +14,10 @@ use App\Http\Controllers\Inspection\ForthController as InspectionForthController
 use Livewire\Livewire;
 
 Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('/livewire/update', $handle);
+    return Route::post(config('livewire.routes.update'), $handle);
 });
 Livewire::setScriptRoute(function ($handle) {
-    return Route::get('/livewire/livewire.js', $handle);
+    return Route::get(config('livewire.routes.script'), $handle);
 });
 Route::controller(WelcomeController::class)->group(function () {
     Route::get('/', 'index')->name('welcome');
