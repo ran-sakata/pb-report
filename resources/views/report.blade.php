@@ -462,8 +462,8 @@ h2 {
         @for ($i = 0; $i < 6 ; $i += 2)
             <tr>
                 <td><div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
-                    @if (isset($report->powerConverterOverviewPhotos[$i]))
-                        <img src="{{ storage_path('app/public/' . $report->powerConverterOverviewPhotos[$i]->photo_path) }}" alt="パワコン全景{{ $i + 1 }}画像" class="h-32 object-contain rounded-md">
+                    @if (isset($report->powerConverterPhotos[$i]))
+                        <img src="{{ storage_path('app/public/' . $report->powerConverterPhotos[$i]->photo_path) }}" alt="パワコン全景{{ $i + 1 }}画像" class="h-32 object-contain rounded-md">
                     @else
                         <div class="photo-placeholder"></div>
                     @endif
@@ -471,8 +471,8 @@ h2 {
                 </td>
                 <td>
                     <div style="border: 1px solid #000; padding: 10px; box-sizing: border-box;">
-                    @if (isset($report->powerConverterOverviewPhotos[$i + 1]))
-                        <img src="{{ storage_path('app/public/' . $report->powerConverterOverviewPhotos[$i + 1]->photo_path) }}" alt="パワコン全景{{ $i + 2 }}画像" class="h-32 object-contain rounded-md">
+                    @if (isset($report->powerConverterPhotos[$i + 1]))
+                        <img src="{{ storage_path('app/public/' . $report->powerConverterPhotos[$i + 1]->photo_path) }}" alt="パワコン全景{{ $i + 2 }}画像" class="h-32 object-contain rounded-md">
                     @else
                         <div class="photo-placeholder"></div>
                     @endif
