@@ -142,50 +142,17 @@
                 @endif
             </div>
 
-            <!-- パワコン全景 -->
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パワコン全景</h3>
-                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->power_converter_status ?? '未選択' }}</p>
-                @foreach ($report->powerConverterPhotos as $photo)
-                    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン全景画像" class="mt-2 max-h-40 rounded-md">
+            <!-- パワコン1~10台目 -->
+            <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2 mt-6">パワコン1~10台目</h3>
+            <div class="flex flex-wrap gap-2">
+                @foreach ($report->powerConverters as $photo)
+                    @if ($photo->thumbnail_path)
+                        <img src="{{ asset('storage/' . $photo->thumbnail_path) }}" alt="パワコン写真" class="mt-2 max-h-40 rounded-md">
+                    @else
+                        <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パワコン写真" class="mt-2 max-h-40 rounded-md">
+                    @endif
                 @endforeach
-                @if ($report->powerConverterPhotos->isEmpty())
-                    <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
-                @endif
-            </div>
-
-            <!-- 配管パテ -->
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">配管パテ</h3>
-                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->pipe_putty_status ?? '未選択' }}</p>
-                @foreach ($report->pipePuttyPhotos as $photo)
-                    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="配管パテ画像" class="mt-2 max-h-40 rounded-md">
-                @endforeach
-                @if ($report->pipePuttyPhotos->isEmpty())
-                    <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
-                @endif
-            </div>
-
-            <!-- 架台 -->
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">架台</h3>
-                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->panel_array_status ?? '未選択' }}</p>
-                @foreach ($report->panelArrayPhotos as $photo)
-                    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="架台画像" class="mt-2 max-h-40 rounded-md">
-                @endforeach
-                @if ($report->panelArrayPhotos->isEmpty())
-                    <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
-                @endif
-            </div>
-
-            <!-- パネル汚れ有無 -->
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">パネル汚れ</h3>
-                <p class="text-sm text-gray-700 dark:text-gray-300"><strong>状態:</strong> {{ $report->panel_condition_status ?? '未選択' }}</p>
-                @foreach ($report->panelConditionPhotos as $photo)
-                    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="パネル汚れ有無画像" class="mt-2 max-h-40 rounded-md">
-                @endforeach
-                @if ($report->panelConditionPhotos->isEmpty())
+                @if ($report->westPathPhotos->isEmpty())
                     <p class="text-sm text-gray-700 dark:text-gray-300">未アップロード</p>
                 @endif
             </div>
