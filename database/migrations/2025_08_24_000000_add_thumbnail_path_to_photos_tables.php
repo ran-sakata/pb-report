@@ -11,11 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // power_converters
-        Schema::table('power_converters', function (Blueprint $table) {
-            $table->integer('index')->nullable()->after('report_id');
-        });
-
         // power_converter_photos
         Schema::table('power_converter_photos', function (Blueprint $table) {
             $table->integer('index')->nullable()->after('report_id');
@@ -27,9 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('power_converters', function (Blueprint $table) {
-            $table->dropColumn('index');
-        });
         Schema::table('power_converter_photos', function (Blueprint $table) {
             $table->dropColumn('index');
         });
