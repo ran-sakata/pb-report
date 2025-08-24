@@ -16,8 +16,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
         "maestroerror/heif-converter": "^0.2.0",
-        "maestroerror/php-heic-to-jpg": "^1.0",
-        "yaza/laravel-google-drive-storage": "^4.1"
+        "maestroerror/php-heic-to-jpg": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

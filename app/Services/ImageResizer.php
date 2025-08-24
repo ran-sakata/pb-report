@@ -6,6 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use App\Models\Image;
 
 class ImageResizer
 {
@@ -18,7 +19,7 @@ class ImageResizer
      * @param bool $isThumbnail
      * @return array
      */
-    public static function resizeAndSave(UploadedFile $file, $disk = 'google', $maxWidth = 600)
+    public static function resizeAndSave(UploadedFile $file, $disk = 'public', $maxWidth = 600)
     {
         $manager = new ImageManager(new Driver());
 
@@ -40,7 +41,7 @@ class ImageResizer
             $constraint->upsize();
         });
         $originalPath = 'photos/' . uniqid() . '.jpg';
-        Storage::disk($disk)->put($originalPath, (string) $image->encode(), ['metadata' => ['cacheControl' => 'no-cache']]);
+        Storage::disk($disk)->put($originalPath, (string) $image->encode());
 
         // サムネイル画像保存（最大幅200px）
         $thumbMaxWidth = 200;
